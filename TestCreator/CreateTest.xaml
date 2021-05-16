@@ -1,0 +1,38 @@
+﻿<Window x:Class="TestCreator.CreateTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        mc:Ignorable="d"
+        Title="CreateTest" Height="450" Width="400">
+    <Grid>
+        <Button Content="Save Test" 
+                HorizontalAlignment="Left"
+                Margin="110,0,0,10" 
+                VerticalAlignment="Bottom" 
+                Height="38" Width="113" Click="Button_Click_SaveTest"/>
+
+        <Button Content="Add question"
+                HorizontalAlignment="Left" 
+                Margin="10,0,0,10"
+                VerticalAlignment="Bottom" 
+                Click="Button_Click_AddQuestion"
+                Height="38" Width="88"/>
+
+        <ScrollViewer HorizontalAlignment="Left" 
+                      VerticalAlignment="Top"
+                      Height="354"
+                      Width="380" >
+            <StackPanel x:Name="QuestionBox" />
+        </ScrollViewer>
+        <CheckBox x:Name="CheckBoxQuizMode" 
+                  Content="Quiz mode" 
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Bottom"
+                  Margin="10,0,0,60" 
+                  Click="CheckBox_QuizMode_Click" 
+                 />
+
+    </Grid>
+</Window>
