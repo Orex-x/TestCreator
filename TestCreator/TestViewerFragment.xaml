@@ -10,11 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-
-
-
 
         <ListView Grid.Row="1" x:Name="listAnswers">
             <ListView.View>
@@ -23,21 +19,12 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label HorizontalAlignment="Center"
+        
+        
+        <Label x:Name="labelThemeQuestion"
+            HorizontalAlignment="Center"
                VerticalAlignment="Center" 
                Height="30" Width="350" />
-        <Button Content="Exit" 
-                Height="25"
-                Width="50"
-                HorizontalAlignment="Right" 
-                Margin="0,0,10,10" Grid.Row="2" 
-                VerticalAlignment="Bottom"/>
-
-        <Button Content="Send test" 
-                Height="25"
-                Width="100"
-                HorizontalAlignment="Right" 
-                Margin="0,0,70,10" Grid.Row="2" 
-                VerticalAlignment="Bottom"/>
+       
     </Grid>
 </UserControl>

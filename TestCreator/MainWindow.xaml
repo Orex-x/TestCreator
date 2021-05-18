@@ -30,7 +30,10 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
-        <Button Content="add test" Grid.Column="1" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top" Width="64" Height="32" Click="Button_Click"/>
+        <Button Content="add test" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="60" Height="30" Click="Button_Click_AddTest"/>
+        <Button Content="edit test" Grid.Column="1" HorizontalAlignment="Left" Margin="80,0,0,10" VerticalAlignment="Bottom" Height="30" Width="60" Click="Button_Click_EditTest"/>
+        <Button Content="save Data" Grid.Column="1" HorizontalAlignment="Left" Margin="150,0,0,10" VerticalAlignment="Bottom" Height="30" Width="60" Click="Button_Click_SaveData"/>
+        <Button Content="view test" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,50" VerticalAlignment="Bottom" Height="30" Width="60" Click="Button_Click_ViewTest"/>
 
 
 

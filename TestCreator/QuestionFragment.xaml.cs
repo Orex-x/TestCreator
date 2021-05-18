@@ -18,8 +18,8 @@ namespace TestCreator
     public partial class QuestionFragment : UserControl
     {
 
-        ObservableCollection<CheckBox> listCheckBox = new ObservableCollection<CheckBox>();
-        ObservableCollection<RadioButton> listRadioButton = new ObservableCollection<RadioButton>();
+        public ObservableCollection<CheckBox> listCheckBox = new ObservableCollection<CheckBox>();
+        public ObservableCollection<RadioButton> listRadioButton = new ObservableCollection<RadioButton>();
 
         public QuestionFragment()
         {
@@ -32,12 +32,17 @@ namespace TestCreator
         {
             QuestionFragment qf = (sender as Button).DataContext as QuestionFragment;
 
-            RadioButton rb = CreateElementUI.getRadioButton(100, 20, new Thickness(0, 0, 0, 0), "Answer #" +
-                   listCheckBox.Count,
+            TextBox box1 = new TextBox();
+            box1.Text = "Answer #" + listCheckBox.Count;
+            TextBox box2 = new TextBox();
+            box2.Text = "Answer #" + listCheckBox.Count;
+
+            RadioButton rb = CreateElementUI.getRadioButton(100, 20, new Thickness(0, 0, 0, 0), false, box1, CreateTest.listQustions.IndexOf(qf).ToString(),
                  HorizontalAlignment.Left, VerticalAlignment.Top);
 
-            CheckBox ch = CreateElementUI.getCheckBox(100, 20, new Thickness(0, 0, 0, 0), "Answer #" +
-                     listCheckBox.Count,
+          
+
+            CheckBox ch = CreateElementUI.getCheckBox(100, 20, new Thickness(0, 0, 0, 0), false, box2,
                  HorizontalAlignment.Left, VerticalAlignment.Top);
 
             qf.listCheckBox.Add(ch);
@@ -46,7 +51,11 @@ namespace TestCreator
 
         private void CheckBox_QuizMode_Click(object sender, RoutedEventArgs e)
         {
+            updateLists();
+        }
 
+        public void updateLists()
+        {
             if (CheckBoxQuizMode.IsChecked == true)
             {
                 listAnswers.ItemsSource = listRadioButton;

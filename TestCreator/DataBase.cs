@@ -8,7 +8,7 @@ namespace TestCreator
 {
     class DataBase
     {
-        public static string DIRECTORY_TESTS = "tests";
+        public static string FILE_TESTS = "tests";
 
         public static string getData(string path)
         {
@@ -22,7 +22,7 @@ namespace TestCreator
             return s;
         }
 
-        public static void fillList(ObservableCollection<string> list, string path)
+        public static void fillList(List<string> list, string path)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace TestCreator
 
         }
 
-        public static void saveList(ObservableCollection<string> list, string path)
+        public static void saveList(List<string> list, string path)
         {
             StreamWriter f = new StreamWriter(path);
             for (int i = 0; i < list.Count; i++)

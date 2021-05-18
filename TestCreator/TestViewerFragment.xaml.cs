@@ -18,6 +18,8 @@ namespace TestCreator
     /// </summary>
     public partial class TestViewer : UserControl
     {
+        public List<RadioButton> radioButtonsAnswers = new List<RadioButton>();
+        public List<CheckBox> checkBoxesAnswers = new List<CheckBox>();
         public TestViewer()
         {
             InitializeComponent();

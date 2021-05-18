@@ -17,13 +17,13 @@ namespace TestCreator
 {
     public partial class CreateTest : Window
     {
-        ObservableCollection<QuestionFragment> listQustions = new ObservableCollection<QuestionFragment>();
-        List<string> listQuestionsJSON = new List<string>();
+        public static ObservableCollection<QuestionFragment> listQustions = new ObservableCollection<QuestionFragment>();
         public bool answerIsChoose = false, savetest = true;
 
         public CreateTest()
         {
             InitializeComponent();
+            listQustions.Clear();
             ListViewQuestions.ItemsSource = listQustions;
             listQustions.Add(new QuestionFragment());
         }
@@ -31,6 +31,54 @@ namespace TestCreator
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             listQustions.Add(new QuestionFragment());
+        }
+
+        public void loadTest(Test test)
+        {
+            listQustions.Clear();
+            ThemeTest.Text = test.Title;
+            foreach (Question questions in test.Questions){
+                QuestionFragment qf = new QuestionFragment();
+                
+               /* TextBox box = CreateElementUI.getTextBox(100, 40, new Thickness(0, 0, 0, 0), questions.Title,
+                    HorizontalAlignment.Left, VerticalAlignment.Top);
+*/
+                TextBox box = new TextBox();
+                box.Text = questions.Title;
+
+                qf.TitleQuestion = box;
+
+                if (questions.IsCheckBox)
+                {
+                    qf.CheckBoxQuizMode.IsChecked = false;
+                    qf.updateLists();
+                    for (int i = 0; i < questions.Answers.Count; i++)
+                    {
+                        TextBox textBox = new TextBox();
+                        textBox.Text = questions.Answers[i].Title;
+                        CheckBox ch = CreateElementUI.getCheckBox(100, 20, new Thickness(0, 0, 0, 0), 
+                            questions.Answers[i].IsTrue, textBox,
+                            HorizontalAlignment.Left, VerticalAlignment.Top);
+                        qf.listCheckBox.Add(ch);
+                    }
+                }
+                else
+                {
+                    qf.CheckBoxQuizMode.IsChecked = true;
+                    qf.updateLists();
+                    for (int i = 0; i < questions.Answers.Count; i++)
+                    {
+                        TextBox textBox = new TextBox();
+                        textBox.Text = questions.Answers[i].Title;
+
+                        RadioButton rb = CreateElementUI.getRadioButton(100, 20, new Thickness(0, 0, 0, 0),
+                            questions.Answers[i].IsTrue, textBox, questions.Answers[i].GroupName, HorizontalAlignment.Left, VerticalAlignment.Top);
+                        qf.listRadioButton.Add(rb);
+                    }
+                }
+                listQustions.Add(qf);
+            }
+
         }
 
         private void Button_Click_Save_Test(object sender, RoutedEventArgs e)
@@ -53,11 +101,12 @@ namespace TestCreator
                         question.Answers = new List<Answer>();
                         if(qf.listAnswers.Items.Count > 1)
                         {
-                            //проходимся по списку ответов
-                            for(int j = 0; j < qf.listAnswers.Items.Count; j++)
+                            //какой обьект будет использоваться
+                            if (qf.CheckBoxQuizMode.IsChecked == true)
                             {
-                                //какой обьект будет использоваться
-                                if(qf.CheckBoxQuizMode.IsChecked == true)
+                                question.IsCheckBox = false;
+                                //проходимся по списку ответов
+                                for (int j = 0; j < qf.listAnswers.Items.Count; j++)
                                 {
                                     RadioButton rb = qf.listAnswers.Items[j] as RadioButton;
                                     Answer answer = new Answer();
@@ -65,7 +114,8 @@ namespace TestCreator
                                     {
                                         answer.Title = (rb.Content as TextBox).Text;
                                         answer.IsTrue = rb.IsChecked.Value;
-                                        if(rb.IsChecked == true) answerIsChoose = true;
+                                        answer.GroupName = rb.GroupName;
+                                        if (rb.IsChecked == true) answerIsChoose = true;
                                         question.Answers.Add(answer);
                                     }
                                     else
@@ -74,7 +124,12 @@ namespace TestCreator
                                         qf.labelError.Content = "Answer titile is null";
                                     }
                                 }
-                                else
+                            }
+                            else
+                            {
+                                question.IsCheckBox = true;
+                                //проходимся по списку ответов
+                                for (int j = 0; j < qf.listAnswers.Items.Count; j++)
                                 {
                                     CheckBox ch = qf.listAnswers.Items[j] as CheckBox;
                                     Answer answer = new Answer();
@@ -90,7 +145,6 @@ namespace TestCreator
                                         savetest = false;
                                         qf.labelError.Content = "Answer titile is null";
                                     }
-                                        
                                 }
                             }
                             if (answerIsChoose)
@@ -117,11 +171,9 @@ namespace TestCreator
                 }
                 if (savetest)
                 {
-                    //string json = JsonSerializer.Serialize<Test>(test);
                     MainWindow.tests.Add(test);
                     MessageBox.Show("Test is save");
                     this.Close();
-                   
                 }
             }
             else

@@ -8,7 +8,7 @@ namespace TestCreator
 {
     class CreateElementUI
     {
-        public static TextBox getTextBox(double width, double height, Thickness margin, string text,
+        public static TextBox getTextBox(double width, double height, Thickness margin, string text, 
             HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
             TextBox textBoxtitle = new TextBox();
@@ -22,31 +22,30 @@ namespace TestCreator
         }
 
 
-        public static CheckBox getCheckBox(double width, double height, Thickness margin, string text,
+        public static CheckBox getCheckBox(double width, double height, Thickness margin, bool check, Object o, 
            HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
             CheckBox textBoxtitle = new CheckBox();
-            TextBox box = new TextBox();
-            box.Text = text;
             textBoxtitle.Width = width;
             textBoxtitle.Height = height;
             textBoxtitle.Margin = margin;
-            textBoxtitle.Content = box;
+            textBoxtitle.Content = o;
+            textBoxtitle.IsChecked = check;
             textBoxtitle.HorizontalAlignment = horizontalAlignment;
             textBoxtitle.VerticalAlignment = verticalAlignment;
             return textBoxtitle;
         }
 
-        public static RadioButton getRadioButton(double width, double height, Thickness margin, string text,
+        public static RadioButton getRadioButton(double width, double height, Thickness margin, bool check, Object o, string groupname,
           HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
             RadioButton textBoxtitle = new RadioButton();
-            TextBox box = new TextBox();
-            box.Text = text;
             textBoxtitle.Width = width;
             textBoxtitle.Height = height;
             textBoxtitle.Margin = margin;
-            textBoxtitle.Content = box;
+            textBoxtitle.Content = o;
+            textBoxtitle.GroupName = groupname;
+            textBoxtitle.IsChecked = check;
             textBoxtitle.HorizontalAlignment = horizontalAlignment;
             textBoxtitle.VerticalAlignment = verticalAlignment;
             return textBoxtitle;
@@ -67,7 +66,7 @@ namespace TestCreator
         }
 
 
-        public static List<RadioButton> toRadioButton(List<CheckBox> checkBoxes)
+       /* public static List<RadioButton> toRadioButton(List<CheckBox> checkBoxes)
         {
             List<RadioButton> radioButtons = new List<RadioButton>();
             for(int i = 0; i < checkBoxes.Count; i++)
@@ -78,9 +77,9 @@ namespace TestCreator
                    b.Text, check.HorizontalAlignment, check.VerticalAlignment));
             }
             return radioButtons;
-        }
+        }*/
 
-        public static List<CheckBox> toCheckBox(List<RadioButton> radioButtons)
+       /* public static List<CheckBox> toCheckBox(List<RadioButton> radioButtons)
         {
             List<CheckBox> checkBoxes = new List<CheckBox>();
             for (int i = 0; i < radioButtons.Count; i++)
@@ -91,6 +90,6 @@ namespace TestCreator
                    b.Text, radioButton.HorizontalAlignment, radioButton.VerticalAlignment));
             }
             return checkBoxes;
-        }
+        }*/
     }
 }
