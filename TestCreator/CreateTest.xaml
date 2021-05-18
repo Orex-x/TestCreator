@@ -7,32 +7,32 @@
         mc:Ignorable="d"
         Title="CreateTest" Height="450" Width="400">
     <Grid>
-        <Button Content="Save Test" 
-                HorizontalAlignment="Left"
-                Margin="110,0,0,10" 
-                VerticalAlignment="Bottom" 
-                Height="38" Width="113" Click="Button_Click_SaveTest"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
-        <Button Content="Add question"
-                HorizontalAlignment="Left" 
-                Margin="10,0,0,10"
-                VerticalAlignment="Bottom" 
-                Click="Button_Click_AddQuestion"
-                Height="38" Width="88"/>
+        <ListView x:Name="ListViewQuestions" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Add qustion" HorizontalAlignment="Left"
+                Margin="10,0,0,10" VerticalAlignment="Bottom"
+                Grid.Row="2"
+                Click="Button_Click"/>
 
-        <ScrollViewer HorizontalAlignment="Left" 
-                      VerticalAlignment="Top"
-                      Height="354"
-                      Width="380" >
-            <StackPanel x:Name="QuestionBox" />
-        </ScrollViewer>
-        <CheckBox x:Name="CheckBoxQuizMode" 
-                  Content="Quiz mode" 
-                  HorizontalAlignment="Left" 
-                  VerticalAlignment="Bottom"
-                  Margin="10,0,0,60" 
-                  Click="CheckBox_QuizMode_Click" 
-                 />
+        <Button Content="save test" HorizontalAlignment="Left" 
+                Margin="90,0,0,10" VerticalAlignment="Bottom" 
+                Grid.Row="2"
+                Click="Button_Click_Save_Test"/>
+        <TextBox x:Name="ThemeTest"
+            HorizontalAlignment="Center" Text="Text theme" 
+                 TextWrapping="Wrap" VerticalAlignment="Center" 
+                 Width="400" Height="28"/>
 
     </Grid>
 </Window>

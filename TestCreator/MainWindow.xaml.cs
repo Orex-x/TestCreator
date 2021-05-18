@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,32 +13,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TestCreator.Objects;
 
 namespace TestCreator
 {
     public partial class MainWindow : Window
     {
-       
-        
+        public static ObservableCollection<Test> tests = new ObservableCollection<Test>();
 
         public MainWindow()
         {
             InitializeComponent();
-            ClearGameField(null, null);
+            listTests.ItemsSource = tests;
         }
 
-        private void ClearGameField(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Button button = new Button();
-            button.Width = 100;
-            button.Height = 100;
-            button.Content = "B1";
-            button.Click += ClearGameField;
-            button.VerticalAlignment = VerticalAlignment.Top;
-            button.HorizontalAlignment = HorizontalAlignment.Right;
-            TestBox.Children.Add(button);
+            CreateTest createTest = new CreateTest();
+            createTest.Show();
         }
-
-      
     }
 }

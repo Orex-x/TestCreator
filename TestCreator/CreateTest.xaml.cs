@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -9,104 +11,127 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestCreator.Objects;
 
 namespace TestCreator
 {
-    /// <summary>
-    /// Логика взаимодействия для CreateTest.xaml
-    /// </summary>
     public partial class CreateTest : Window
     {
-        static Question buffer_question;
+        ObservableCollection<QuestionFragment> listQustions = new ObservableCollection<QuestionFragment>();
+        List<string> listQuestionsJSON = new List<string>();
+        public bool answerIsChoose = false, savetest = true;
+
         public CreateTest()
         {
             InitializeComponent();
+            ListViewQuestions.ItemsSource = listQustions;
+            listQustions.Add(new QuestionFragment());
         }
 
-        private void Button_Click_AddQuestion(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            buffer_question = new Question();
-            TextBox title = CreateElementUI.getTextBox(200, 20, new Thickness(0, 0, 0, 0), "Question",
-                HorizontalAlignment.Left, VerticalAlignment.Top);
-            Button buttonAdd = CreateElementUI.getButton(100, 30, new Thickness(0, 0, 0, 0), "ADD",
-                 HorizontalAlignment.Left, VerticalAlignment.Top);
-            buttonAdd.Click += Button_Click_AddAnswer;
-
-            buffer_question.AnswersCheckBox = new List<CheckBox>();
-            buffer_question.AnswersRadioButton = new List<RadioButton>();
-
-            QuestionBox.Children.Add(title);
-            buffer_question.QuestionTitle = title;
-
-            for (int i = 0; i < 2; i++)
-            {
-                CheckBox ch = CreateElementUI.getCheckBox(100, 20, new Thickness(0, 0, 0, 0), "Answer #" + i,
-                    HorizontalAlignment.Left, VerticalAlignment.Top);
-                QuestionBox.Children.Add(ch);
-                buffer_question.AnswersCheckBox.Add(ch);
-
-            }
-            buffer_question.AnswersRadioButton = CreateElementUI.toRadioButton(buffer_question.AnswersCheckBox);
-            QuestionBox.Children.Add(buttonAdd);
+            listQustions.Add(new QuestionFragment());
         }
 
-
-        private void Button_Click_AddAnswer(object sender, RoutedEventArgs e)
+        private void Button_Click_Save_Test(object sender, RoutedEventArgs e)
         {
-            if (CheckBoxQuizMode.IsChecked == true)
+            savetest = true;
+            Test test = new Test();
+            test.Questions = new List<Question>();
+            if (ThemeTest.Text.Length > 0)
             {
-                RadioButton rb = CreateElementUI.getRadioButton(100, 20, new Thickness(0, 0, 0, 0), "Answer #" +
-                    buffer_question.AnswersRadioButton.Count,
-                  HorizontalAlignment.Left, VerticalAlignment.Top);
-                QuestionBox.Children.Insert(QuestionBox.Children.Count - 1, rb);
-                buffer_question.AnswersRadioButton.Add(rb);
+                test.Title = ThemeTest.Text;
+                //проходимся по списку вопросов
+                for (int i = 0; i < listQustions.Count; i++)
+                {
+                    QuestionFragment qf = listQustions[i];
+                    if(qf.TitleQuestion.Text.Length > 0)
+                    {
+                        Question question = new Question();
+                        answerIsChoose = false;
+                        question.Title = qf.TitleQuestion.Text;
+                        question.Answers = new List<Answer>();
+                        if(qf.listAnswers.Items.Count > 1)
+                        {
+                            //проходимся по списку ответов
+                            for(int j = 0; j < qf.listAnswers.Items.Count; j++)
+                            {
+                                //какой обьект будет использоваться
+                                if(qf.CheckBoxQuizMode.IsChecked == true)
+                                {
+                                    RadioButton rb = qf.listAnswers.Items[j] as RadioButton;
+                                    Answer answer = new Answer();
+                                    if ((rb.Content as TextBox).Text.Length > 0)
+                                    {
+                                        answer.Title = (rb.Content as TextBox).Text;
+                                        answer.IsTrue = rb.IsChecked.Value;
+                                        if(rb.IsChecked == true) answerIsChoose = true;
+                                        question.Answers.Add(answer);
+                                    }
+                                    else
+                                    {
+                                        savetest = false;
+                                        qf.labelError.Content = "Answer titile is null";
+                                    }
+                                }
+                                else
+                                {
+                                    CheckBox ch = qf.listAnswers.Items[j] as CheckBox;
+                                    Answer answer = new Answer();
+                                    if ((ch.Content as TextBox).Text.Length > 0)
+                                    {
+                                        answer.Title = (ch.Content as TextBox).Text;
+                                        answer.IsTrue = ch.IsChecked.Value;
+                                        if (ch.IsChecked == true) answerIsChoose = true;
+                                        question.Answers.Add(answer);
+                                    }
+                                    else
+                                    {
+                                        savetest = false;
+                                        qf.labelError.Content = "Answer titile is null";
+                                    }
+                                        
+                                }
+                            }
+                            if (answerIsChoose)
+                            {
+                                test.Questions.Add(question);
+                            }
+                            else
+                            {
+                                qf.labelError.Content = "Choose true answer";
+                                savetest = false;
+                            }  
+                        }
+                        else
+                        {
+                            qf.labelError.Content = "Answers is null";
+                            savetest = false;
+                        }
+                    }
+                    else
+                    {
+                        qf.labelError.Content = "Titile question is null";
+                        savetest = false;
+                    }
+                }
+                if (savetest)
+                {
+                    //string json = JsonSerializer.Serialize<Test>(test);
+                    MainWindow.tests.Add(test);
+                    MessageBox.Show("Test is save");
+                    this.Close();
+                   
+                }
             }
             else
             {
-                CheckBox ch = CreateElementUI.getCheckBox(100, 20, new Thickness(0, 0, 0, 0), "Answer #" +
-                       buffer_question.AnswersCheckBox.Count,
-                   HorizontalAlignment.Left, VerticalAlignment.Top);
-                QuestionBox.Children.Insert(QuestionBox.Children.Count - 1, ch);
-                buffer_question.AnswersCheckBox.Add(ch);
-
+                MessageBox.Show("Titile test is null");
+                savetest = false;
             }
-        }
+               
+        }   
 
-        private void CheckBox_QuizMode_Click(object sender, RoutedEventArgs e)
-        {
-
-            if (CheckBoxQuizMode.IsChecked == true)
-            {
-                for (int i = 0; i < buffer_question.AnswersCheckBox.Count; i++)
-                {
-                    QuestionBox.Children.Remove(buffer_question.AnswersCheckBox[i]);
-                }
-                buffer_question.AnswersRadioButton = CreateElementUI.toRadioButton(buffer_question.AnswersCheckBox);
-                for (int i = 0; i < buffer_question.AnswersRadioButton.Count; i++)
-                {
-                    QuestionBox.Children.Insert(i + 1, buffer_question.AnswersRadioButton[i]);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < buffer_question.AnswersRadioButton.Count; i++)
-                {
-                    QuestionBox.Children.Remove(buffer_question.AnswersRadioButton[i]);
-                }
-                buffer_question.AnswersCheckBox = CreateElementUI.toCheckBox(buffer_question.AnswersRadioButton);
-                for (int i = 0; i < buffer_question.AnswersCheckBox.Count; i++)
-                {
-                    QuestionBox.Children.Insert(i + 1, buffer_question.AnswersCheckBox[i]);
-                }
-            }
-        }
-
-        private void Button_Click_SaveTest(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < QuestionBox.Children.Count; i++)
-            {
-
-            }
-        }
+           
     }
 }

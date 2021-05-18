@@ -7,9 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ScrollViewer Width="400" HorizontalAlignment="Left">
-            <StackPanel x:Name="TestBox" />
-        </ScrollViewer>
-       
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+
+        <ListView  x:Name="listTests">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Width="300" Text="{Binding Path=Title}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+        </ListView>
+        <Button Content="add test" Grid.Column="1" HorizontalAlignment="Left" Margin="10,392,0,0" VerticalAlignment="Top" Width="64" Height="32" Click="Button_Click"/>
+
+
+
     </Grid>
 </Window>
