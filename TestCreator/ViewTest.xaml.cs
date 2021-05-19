@@ -41,7 +41,6 @@ namespace TestCreator
                 TestViewer tw = new TestViewer();
                 tw.labelThemeQuestion.Content = questions.Title;
 
-
                 if (questions.IsCheckBox)
                 {
                     tw.listAnswers.ItemsSource = tw.checkBoxesAnswers;
@@ -69,23 +68,25 @@ namespace TestCreator
                 }
                 testViewers.Add(tw);
             }
-
         }
 
         private void Button_Click_SendTest(object sender, RoutedEventArgs e)
         {
-            int count = 0;
+            double count = 0;
             for(int i = 0; i < Maintest.Questions.Count; i++)
             {
-                for (int j = 0; j < Maintest.Questions[i].Answers.Count; j++)
+                Question question = Maintest.Questions[i];
+                for (int j = 0; j < question.Answers.Count; j++)
                 {
-                    Answer trueAnswer = Maintest.Questions[i].Answers[j];
-                    if (Maintest.Questions[i].IsCheckBox)
+                    Answer trueAnswer = question.Answers[j];
+                    if (question.IsCheckBox)
                     {
                         CheckBox ch = testViewers[i].listAnswers.Items[j] as CheckBox;
                         if (trueAnswer.IsTrue && ch.IsChecked == trueAnswer.IsTrue)
                         {
-                            count++;
+                            double m = (double) Maintest.Questions[i].Mark / 
+                                (double) Maintest.Questions[i].NumTrueAnswer;
+                            count += m;
                         }
                     }
                     else
@@ -93,17 +94,24 @@ namespace TestCreator
                         RadioButton rd = testViewers[i].listAnswers.Items[j] as RadioButton;
                         if (trueAnswer.IsTrue && rd.IsChecked == trueAnswer.IsTrue)
                         {
-                            count++;
-                            
+                            count += Maintest.Questions[i].Mark;
                         }
                     }
-
                 }
             }
             MessageBox.Show("Вы небрали " + count + " баллов");
 
         }
 
-     
+        public void saveAnswers()
+        {
+            for(int i = 0; i < testViewers.Count; i++)
+            {
+                 
+            }
+        }
     }
+
+
+   
 }

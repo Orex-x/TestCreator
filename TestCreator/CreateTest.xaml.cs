@@ -96,11 +96,24 @@ namespace TestCreator
                     if(qf.TitleQuestion.Text.Length > 0)
                     {
                         Question question = new Question();
+                        int numTrueAnswer = 0;
                         answerIsChoose = false;
                         question.Title = qf.TitleQuestion.Text;
                         question.Answers = new List<Answer>();
                         if(qf.listAnswers.Items.Count > 1)
                         {
+                            if (qf.TextBoxMark.Text.Length > 0)
+                            {
+                                try
+                                {
+                                    int mark = Convert.ToInt32(qf.TextBoxMark.Text);
+                                    question.Mark = mark;
+                                }catch(Exception ee)
+                                {
+                                    qf.labelError.Content = "Mark not number";
+                                    savetest = false;
+                                }
+                           
                             //какой обьект будет использоваться
                             if (qf.CheckBoxQuizMode.IsChecked == true)
                             {
@@ -115,7 +128,11 @@ namespace TestCreator
                                         answer.Title = (rb.Content as TextBox).Text;
                                         answer.IsTrue = rb.IsChecked.Value;
                                         answer.GroupName = rb.GroupName;
-                                        if (rb.IsChecked == true) answerIsChoose = true;
+                                            if (rb.IsChecked == true)
+                                            {
+                                                numTrueAnswer++;
+                                                answerIsChoose = true;
+                                            }
                                         question.Answers.Add(answer);
                                     }
                                     else
@@ -137,8 +154,12 @@ namespace TestCreator
                                     {
                                         answer.Title = (ch.Content as TextBox).Text;
                                         answer.IsTrue = ch.IsChecked.Value;
-                                        if (ch.IsChecked == true) answerIsChoose = true;
-                                        question.Answers.Add(answer);
+                                            if (ch.IsChecked == true)
+                                            {
+                                                numTrueAnswer++;
+                                                answerIsChoose = true;
+                                            }
+                                            question.Answers.Add(answer);
                                     }
                                     else
                                     {
@@ -147,6 +168,7 @@ namespace TestCreator
                                     }
                                 }
                             }
+                                question.NumTrueAnswer = numTrueAnswer;
                             if (answerIsChoose)
                             {
                                 test.Questions.Add(question);
@@ -155,7 +177,13 @@ namespace TestCreator
                             {
                                 qf.labelError.Content = "Choose true answer";
                                 savetest = false;
-                            }  
+                            }
+                            }
+                            else
+                            {
+                                qf.labelError.Content = "Mark is null";
+                                savetest = false;
+                            }
                         }
                         else
                         {

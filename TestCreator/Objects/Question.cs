@@ -13,9 +13,12 @@ namespace TestCreator
         string title;
         List<Answer> answers;
         bool isCheckBox;
+        int mark, numTrueAnswer;
 
         public string Title { set; get; }
         public List<Answer> Answers { set; get; }
         public bool IsCheckBox { set; get; }
+        public int Mark { set; get; }
+        public int NumTrueAnswer { set; get; }
     }
 }

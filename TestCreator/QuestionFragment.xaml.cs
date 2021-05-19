@@ -66,6 +66,21 @@ namespace TestCreator
             }
         }
 
-      
+        private void Button_Click_Delete_Question(object sender, RoutedEventArgs e)
+        {
+            QuestionFragment qf = (sender as Button).DataContext as QuestionFragment;
+            if (qf.listAnswers.SelectedItem != null)
+            {
+                if(qf.CheckBoxQuizMode.IsChecked == true)
+                {
+                    listRadioButton.Remove(qf.listAnswers.SelectedItem as RadioButton);
+                }
+                else
+                {
+                    listCheckBox.Remove(qf.listAnswers.SelectedItem as CheckBox);
+                }
+            }
+                
+        }
     }
 }

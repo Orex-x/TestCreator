@@ -1,0 +1,18 @@
+﻿<Window x:Class="TestCreator.UserProfile"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        mc:Ignorable="d"
+        Title="UserProfile" Height="350" Width="300">
+    <Grid>
+        <TextBox HorizontalAlignment="Left" Margin="10,30,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,53,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,76,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Колическво групп" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top"/>
+        <Button Content="Exit" HorizontalAlignment="Left" Margin="230,293,0,0" VerticalAlignment="Top" Height="31" Width="60"/>
+        <Label Content="Количетво пройденных тестов" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

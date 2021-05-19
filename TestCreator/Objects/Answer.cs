@@ -11,7 +11,6 @@ namespace TestCreator.Objects
 
         public string Title { get; set; }
         public bool IsTrue { get; set; }
-
         public string GroupName { get; set; }
     }
 }
