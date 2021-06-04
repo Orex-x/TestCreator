@@ -5,62 +5,75 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestCreator"
         mc:Ignorable="d"
-        Title="GroupViewWindow" Height="450" Width="400">
+        Title="GroupViewWindow" Height="450" Width="550">
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition/>
-            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
+         
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Button Content="Subscribers" Click="Button_Click_Subscribers" />
+            <Button Content="Testst" Grid.Column="1" Click="Button_Click_Tests"/>
+         
 
-            <ListView  x:Name="listSubscribers"  MouseDoubleClick="listSubscribers_MouseDoubleClick">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Width="300" Text="{Binding Path=login}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
-
-
-            <ListView  x:Name="listTests"  Grid.Column="1" MouseDoubleClick="listSubscribers_MouseDoubleClick">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Width="300" Text="{Binding Path=title}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-            </ListView>
+            <Button x:Name="deleteGroup" Content="Leave"  Click="Button_Click" Grid.Column="4"/>
+            <Button x:Name="button_publish_test" Content="publish test" Grid.Column="2" Click="Button_Click_addTest"/>
+            <Button x:Name="delete_test_from_group" Content="delete test" Grid.Column="3" Click="delete_test_from_group_Click"/>
 
         </Grid>
 
-        <Label x:Name="groupName" Content="GroupName" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29"/>
-        <Button x:Name="deleteGroup" Content="Выпилиться" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Bottom" Margin="0,0,5,5"   Click="Button_Click" Height="25" Grid.RowSpan="2" Width="90"/>
-        <Label x:Name="invitationLink" Content="" HorizontalAlignment="Left"  VerticalAlignment="Top" Grid.Row="1" Height="30" Visibility="Hidden"/>
-        <Button x:Name="copyLink" Content="Copy" HorizontalAlignment="Right"  VerticalAlignment="Center" Grid.Row="1" Height="30" Visibility="Hidden" Click="copyLink_Click_CopyLink" />
-        <Button x:Name="button_publish_test" Content="publish test" Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" Height="27" Width="88" Click="Button_Click_addTest" Margin="5,0,0,0"/>
-        <Button x:Name="delete_test_from_group" Content="delete test" HorizontalAlignment="Left" Margin="150,0,0,5" Grid.Row="3" VerticalAlignment="Bottom" Click="delete_test_from_group_Click"/>
+
+
+        <Grid Grid.Row="2">
+
+
+            <ListView  x:Name="listSubscribers" Visibility="Visible" Margin="0,40,0,0" MouseDoubleClick="listSubscribers_MouseDoubleClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=login}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+
+            <ListView  x:Name="listTests" Visibility="Hidden" MouseDoubleClick="listTests_MouseDoubleClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+            <Label x:Name="invitationLink" Content="invitationLink" VerticalContentAlignment="Center" Height="40" VerticalAlignment="Top" />
+            <Button x:Name="copyLink" Content="Copy" HorizontalAlignment="Right" Width="60" Height="40" VerticalAlignment="Top"  Click="copyLink_Click_CopyLink"/>
+        </Grid>
+        <Label x:Name="groupName" Content="GroupName" HorizontalAlignment="Center" VerticalAlignment="Top" Height="29"/>
     </Grid>
 </Window>

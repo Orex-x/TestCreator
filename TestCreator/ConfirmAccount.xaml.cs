@@ -52,6 +52,7 @@ namespace TestCreator
             if (Client.confirmUser(link.Text))
             {
                 MainWindow mainWindow = new MainWindow();
+                mainWindow.init(user);
                 mainWindow.Show();
                 Close();
             }

@@ -31,7 +31,7 @@ namespace TestCreator
             last_name.Text = user.last_name;
             login.Text = user.login;
             email.Text = user.email;
-            password.Text = user.password;
+            password.Password = user.password;
         }
 
         private void Button_ClickSignUp(object sender, RoutedEventArgs e)
@@ -42,9 +42,9 @@ namespace TestCreator
                !string.IsNullOrEmpty(last_name.Text) && !string.IsNullOrEmpty(login.Text) && !string.IsNullOrEmpty(email.Text)
             )
             {
-                if (password.Text.Length > 6 && password.Text == confirm_password.Text)
+                if (password.Password.Length > 6 && password.Password == confirm_password.Password)
                 {
-                    visibilityAllElements(Visibility.Hidden);
+
 
                     User user = new User
                     {
@@ -52,14 +52,26 @@ namespace TestCreator
                         surname = surname.Text,
                         last_name = last_name.Text,
                         login = login.Text,
-                        password = password.Text,
-                        email = "vipboy78038@gmail.com"
+                        password = password.Password,
+                        email = "vipboy78038@gmail.com",
+                        tests = new System.Collections.ObjectModel.ObservableCollection<Test>(),
+
+
                     };
-                    Client.signUpUser(user);
-                    ConfirmAccount confirmAccount = new ConfirmAccount();
-                    confirmAccount.setInfo(user);
-                    confirmAccount.Show();
-                    Close();
+                    if (Client.signUpUser(user))
+                    {
+                        visibilityAllElements(Visibility.Hidden);
+                        ConfirmAccount confirmAccount = new ConfirmAccount();
+                        confirmAccount.setInfo(user);
+                        confirmAccount.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login is busy");
+                    }
+                  
+                   
                 }
                 else
                 {

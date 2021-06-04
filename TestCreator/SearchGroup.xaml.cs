@@ -22,12 +22,18 @@ namespace TestCreator
     {
 
         ObservableCollection<Group> groups = new ObservableCollection<Group>();
+        private User user;
 
         public SearchGroup()
         {
             InitializeComponent();
             updateGroupList();
             listGroup.ItemsSource = groups;
+        }
+
+        public void init(User user)
+        {
+            this.user = user;
         }
 
         private void Button_ClickUpdate(object sender, RoutedEventArgs e)
@@ -54,7 +60,7 @@ namespace TestCreator
                 {
                     UserGroup userGroup = new UserGroup
                     {
-                        user = MainWindow.mainUser,
+                        user = user,
                         group = group,
                         is_admin = false
                     };
@@ -72,7 +78,7 @@ namespace TestCreator
                 Group group = listGroup.SelectedItem as Group;
                 UserGroup userGroup = new UserGroup
                 {
-                    user = MainWindow.mainUser,
+                    user = user,
                     group = group,
                     is_admin = false
                 };

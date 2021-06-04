@@ -19,9 +19,15 @@ namespace TestCreator
     /// </summary>
     public partial class AddGroup : Window
     {
+        private User user;
         public AddGroup()
         {
             InitializeComponent();
+        }
+
+        public void init(User user)
+        {
+            this.user = user;
         }
 
         private void Button_Click_AddGroup(object sender, RoutedEventArgs e)
@@ -45,7 +51,7 @@ namespace TestCreator
                 {
                     is_admin = true,
                     group = Addgroup,
-                    user = MainWindow.mainUser
+                    user = user
                 };
 
                 Client.addUserGroup(userGroup);

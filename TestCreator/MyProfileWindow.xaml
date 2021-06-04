@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestCreator"
         mc:Ignorable="d"
-        Title="MyProfileWindow" Height="400" Width="320">
+        Title="MyProfileWindow" Height="400" Width="340">
     <Grid>
 
 
@@ -15,22 +15,24 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="firstName" HorizontalAlignment="Left"
-                 Margin="10,10,0,0" Text="TextBox"  VerticalAlignment="Top"/>
-        <TextBox x:Name="surname" HorizontalAlignment="Left"
-                 Margin="10,30,0,0" Text="TextBox" VerticalAlignment="Top"/>
-        <Button Margin="0,0,0,0" Content="About user" HorizontalAlignment="Left" 
-                Grid.Row="1" Width="80" Click="Button_Click_AboutUser"/>
-        <Button Margin="80,0,0,0" Content="Groups" HorizontalAlignment="Left" 
-                Grid.Row="1" Width="80" Click="Button_Click_Group"/>
-        <Button Content="Tests" HorizontalAlignment="Left" Width="80"
-                Margin="160,0,0,0" VerticalAlignment="Center" Grid.Row="1" Height="30" 
-                Click="Button_Click_Test"/>
-        <Button Content="Solved tests " HorizontalAlignment="Left" Width="80" 
-                Margin="240,0,0,0" Grid.Row="1" VerticalAlignment="Center" 
-                Click="Button_Click_SolvedTets"
-                Height="30"/>
 
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button  Content="About user" Click="Button_Click_AboutUser"/>
+            <Button  Content="Groups" Grid.Column="1" Click="Button_Click_Group"/>
+            <Button Content="Tests" Grid.Column="2"  Click="Button_Click_Test"/>
+            <Button Content="Solved tests" Grid.Column="3"  Click="Button_Click_SolvedTets"/>
+        </Grid>
+
+        <TextBox x:Name="firstName" HorizontalAlignment="Left"
+                Text="TextBox"  VerticalAlignment="Top"/>
+        <TextBox x:Name="surname" HorizontalAlignment="Left"
+                Text="TextBox" VerticalAlignment="Top" Margin="0,23,0,0"/>
 
         <Grid Grid.Row="2">
             <ListView  x:Name="listGroups" Visibility="Hidden">
@@ -50,7 +52,7 @@
             </ListView>
 
 
-            <ListView  x:Name="listTests" Visibility="Hidden">
+            <ListView  x:Name="listTests" Visibility="Hidden" MouseDoubleClick="listTests_MouseDoubleClick">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -66,7 +68,7 @@
                 </ListView.ItemsPanel>
             </ListView>
 
-            <ListView  x:Name="listPassetTests" Visibility="Hidden">
+            <ListView  x:Name="listPassetTests" Visibility="Hidden" MouseDoubleClick="listPassetTests_MouseDoubleClick">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -82,12 +84,18 @@
                 </ListView.ItemsPanel>
             </ListView>
 
-            <TextBox x:Name="patronymic" Text="Patronymic: pizadadf" HorizontalAlignment="Left" Margin="14,15,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="email" Text="Email: vpdso@jskdf.com" HorizontalAlignment="Left" Margin="14,41,0,0" VerticalAlignment="Top"/>
-            <TextBox x:Name="login" Text="Login: orex-x" HorizontalAlignment="Left" Margin="14,72,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="numberOfTests" Content="Number of tests: 32" HorizontalAlignment="Left" Margin="14,103,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="numberOfTestsSolved" Content="Number of tests solved: 14" HorizontalAlignment="Left" Margin="14,129,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="numberOfGroup" Content="Number of group: 4" HorizontalAlignment="Left" Margin="14,158,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="patronymic" Text="Patronymic: pizadadf" HorizontalAlignment="Left" Margin="87,18,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="email" Text="Email: vpdso@jskdf.com" HorizontalAlignment="Left" Margin="61,41,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="login" Text="Login: orex-x" HorizontalAlignment="Left" Margin="61,64,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="numberOfTests" Content="Number of tests: 32" HorizontalAlignment="Left" Margin="14,87,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="numberOfTestsSolved" Content="Number of tests solved: 14" HorizontalAlignment="Left" Margin="14,118,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="numberOfGroup" Content="Number of group: 4" HorizontalAlignment="Left" Margin="14,147,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="ButtonApplyEdit" Content="Apply edit" HorizontalAlignment="Left" Margin="14,224,0,0" VerticalAlignment="Top" Height="27" Width="100" Click="ButtonApplyEdit_Click"/>
+            <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="14,178,0,0" VerticalAlignment="Top" Width="120"/>
+            <PasswordBox x:Name="Confirmpassword"  HorizontalAlignment="Left" Margin="14,201,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="120"/>
+            <Label x:Name="lLogin" Content="login:" HorizontalAlignment="Left" Margin="14,59,0,0" VerticalAlignment="Top" Height="27"/>
+            <Label  x:Name="lEmail"  Content="email:" HorizontalAlignment="Left" Margin="14,37,0,0" VerticalAlignment="Top" Height="27"/>
+            <Label x:Name="lPatronymic"  Content="patronymic: " HorizontalAlignment="Left" Margin="14,13,0,0" VerticalAlignment="Top" Height="27"/>
 
         </Grid>
 

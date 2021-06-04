@@ -23,6 +23,8 @@ namespace TestCreator
         public static ObservableCollection<Group> groups = new ObservableCollection<Group>();
         public static ObservableCollection<Test> tests = new ObservableCollection<Test>();
         public static ObservableCollection<PassedTest> passedTests = new ObservableCollection<PassedTest>();
+        private User user;
+
         public UserViewWindow()
         {
             InitializeComponent();
@@ -33,10 +35,6 @@ namespace TestCreator
 
         public void set_info(User user)
         {
-            if(user.login == MainWindow.mainUser.login)
-            {
-
-            }
             firstName.Content = user.first_name;
             lastName.Content = user.last_name;
             email.Content = user.email;

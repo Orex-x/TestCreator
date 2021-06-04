@@ -23,16 +23,17 @@ namespace TestCreator
 
         private void Button_Click_signIn(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(password.Text) && !string.IsNullOrEmpty(login.Text))
+            if (!string.IsNullOrEmpty(password.Password) && !string.IsNullOrEmpty(login.Text))
             {
                 User user = Client.getUserbyLogin(login.Text);
                 if (user != null)
                 {
-                    if (user.password == password.Text)
+                    if (user.password == password.Password)
                     {
                         if (user.activationCode == null)
                         {
                             MainWindow mainWindow = new MainWindow();
+                            mainWindow.init(user);
                             mainWindow.Show();
                             Close();
                         }

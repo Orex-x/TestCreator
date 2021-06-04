@@ -24,6 +24,7 @@ namespace TestCreator
         List<TestViewer> testViewers = new List<TestViewer>();
         private Test test;
         private PassedTest passedTest;
+        private User user;
 
 
 
@@ -32,6 +33,12 @@ namespace TestCreator
             InitializeComponent();
             testViewers.Clear();
             listViewQuestions.ItemsSource = testViewers;
+        }
+
+
+        public void init(User user)
+        {
+            this.user = user;
         }
 
 
@@ -213,11 +220,11 @@ namespace TestCreator
                 }
             }
             passedTest.result = count;
-           // Client.addPassedest(passedTest);
-            MainWindow.mainUser.passedTests.Add(passedTest);
-            MainWindow.mainUser = Client.updateUser(MainWindow.mainUser, MainWindow.mainUser.id_user);
+            user.passedTests.Add(passedTest);
+            user = Client.updateUser(user, user.id_user);
             MainWindow.updateUserGroup();
             MainWindow.updateTest();
+            MainWindow.updatePassedTest();
             MessageBox.Show("Вы небрали " + count + " баллов из " + countIsTrue);
         }
 

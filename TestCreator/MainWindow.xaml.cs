@@ -26,7 +26,7 @@ namespace TestCreator
         public static ObservableCollection<PassedTest> passedTests = new ObservableCollection<PassedTest>();
 
 
-        public static User mainUser;
+        private static User mainUser;
 
         public MainWindow()
         {
@@ -35,24 +35,15 @@ namespace TestCreator
             listGroups.ItemsSource = groups;
             listPassedTests.ItemsSource = passedTests;
             Button_MyTests_Click(null, null);
+          //  mainUser = Client.getUserbyLogin("login");
 
 
-            /*   mainUser = new User
-               {
-                   id_user = 1,
-                   first_name = "name",
-                   surname = "da",
-                   last_name = "dada",
-                   login = "login",
-                   password = "123456789",
-                   email = "vipboy78038@gmail.com",
-                   tests = new List<Test>(),
-                   passedTests = new List<PassedTest>()
-               };*/
+           
+        }
 
-            mainUser = Client.getUserbyLogin("login");
-
-
+        public void init(User user)
+        {
+            mainUser = user;
             updatePassedTest();
             updateUserGroup();
             updateTest();
@@ -71,8 +62,8 @@ namespace TestCreator
         public static void updatePassedTest()
         {
             passedTests.Clear();
-            ObservableCollection<PassedTest> passeds = Client.getPassedestsByUser(mainUser);
-            foreach (PassedTest p in passeds)
+            mainUser.passedTests = Client.getPassedestsByUser(mainUser);
+            foreach (PassedTest p in mainUser.passedTests)
             {
                 passedTests.Add(p);
             }
@@ -94,6 +85,7 @@ namespace TestCreator
         private void Button_Click_AddTest(object sender, RoutedEventArgs e)
         {
             CreateTest createTest2 = new CreateTest();
+            createTest2.init(mainUser);
             createTest2.Show();
         }
 
@@ -101,9 +93,19 @@ namespace TestCreator
         {
             if(listTests.SelectedItem != null)
             {
-                CreateTest createTest = new CreateTest();
-                createTest.Show();
-                createTest.loadTest(listTests.SelectedItem as Test);
+                Test test = listTests.SelectedItem as Test;
+
+                if(Client.findGroupTestByTest(test) == "false")
+                {
+                    CreateTest createTest = new CreateTest();
+                    createTest.init(mainUser);
+                    createTest.Show();
+                    createTest.loadTest(test);
+                }
+                else
+                {
+                    MessageBox.Show("published test cannot be edited");
+                }
             }
         }
 
@@ -115,6 +117,7 @@ namespace TestCreator
             if (listTests.SelectedItem != null)
             {
                 ViewTest viewTest = new ViewTest();
+                viewTest.init(mainUser);
                 viewTest.Show();
                 viewTest.loadTest(listTests.SelectedItem as Test);
             }
@@ -126,12 +129,14 @@ namespace TestCreator
         private void Button_ClickSearchGroup(object sender, RoutedEventArgs e)
         {
             SearchGroup searchGroup = new SearchGroup();
+            searchGroup.init(mainUser);
             searchGroup.Show();
         }
 
         private void Button_ClickAddGroup(object sender, RoutedEventArgs e)
         {
             AddGroup addGroup = new AddGroup();
+            addGroup.init(mainUser);
             addGroup.Show();
         }
 
@@ -143,24 +148,8 @@ namespace TestCreator
             {
                 UserGroup userGroup = listView.SelectedItem as UserGroup;
                 GroupViewWindow groupViewWindow = new GroupViewWindow();
-                groupViewWindow.mainUserGroup = userGroup;
-                groupViewWindow.groupName.Content = userGroup.group.name;
-                ObservableCollection<User> users = Client.getuserByGroup(userGroup.group);
-
-                foreach (Test test in userGroup.group.tests)
-                {
-                    groupViewWindow.tests.Add(test);
-                }
-
-                foreach (User user in users)
-                {
-                    groupViewWindow.subscribers.Add(user);
-                }
-
-                if (userGroup.is_admin)
-                {
-                    groupViewWindow.showLink(userGroup.group.invitationLink);
-                }
+                groupViewWindow.init(userGroup);
+                
                 groupViewWindow.Show();
             }
         }
@@ -182,6 +171,7 @@ namespace TestCreator
             if (listPassedTests.SelectedItem != null)
             {
                 ViewTest viewTest = new ViewTest();
+                viewTest.init(mainUser);
                 viewTest.loadTest(listPassedTests.SelectedItem as PassedTest);
                 viewTest.Show();
             }
@@ -193,7 +183,7 @@ namespace TestCreator
         private void Button_Click_OpenMyProfile(object sender, RoutedEventArgs e)
         {
             MyProfileWindow window = new MyProfileWindow();
-            window.init(mainUser);
+            window.init(mainUser, null);
             window.Show();
 
         }

@@ -15,6 +15,7 @@ namespace TestCreator.TestCreatorAPI
         {
             public static string users = "/users/";
             public static string usersLogin = "/users/login/";
+            public static string usersLoginIsBusy = "/users/loginIsBusy/";
             public static string usersId = "/users/id/";
             public static string usersActivation = "/users/activation/";
             public static string groupByUser = "/users/findAllGroups/";
@@ -22,6 +23,7 @@ namespace TestCreator.TestCreatorAPI
             public static string usersByGroup = "/users/findAllUserByGroup/";
             public static string groupsInvitationLink = "/users/invitation/";
 
+            public static string findGroupTestByTest = "/groupTests/findGroupTestByTest/";
 
             public static string testsGetByUser = "/authors/getTests/";
 
@@ -126,6 +128,14 @@ namespace TestCreator.TestCreatorAPI
             }
             
         }
+        public static string userLoginIsBusy(string login)
+        {
+            string uri = GenerateUrl(Urls.usersLoginIsBusy + login);
+            return sendRequest("", uri, Method.GET);
+        }
+
+
+    
 
         public static void deleteUserByLogin(string login)
         {
@@ -284,8 +294,14 @@ namespace TestCreator.TestCreatorAPI
             return sendRequest(json, uri, Method.POST);
         }
 
+        //---------------------------------------------GROUP TEST----------------------------------------------------------
 
-
+        public static string findGroupTestByTest(Test test)
+        {
+            string json = JsonSerializer.Serialize(test);
+            string uri = GenerateUrl(Urls.findGroupTestByTest);
+            return sendRequest(json, uri, Method.POST);
+        }
 
     }
 }

@@ -21,7 +21,7 @@ namespace TestCreator
     /// </summary>
     public partial class GroupViewWindow : Window
     {
-        public UserGroup mainUserGroup;
+        private UserGroup userGroup;
         public ObservableCollection<User> subscribers = new ObservableCollection<User>();
         public ObservableCollection<Test> tests = new ObservableCollection<Test>();
 
@@ -32,35 +32,58 @@ namespace TestCreator
             listTests.ItemsSource = tests;
         }
 
+        public void init(UserGroup userGroup)
+        {
+            this.userGroup = userGroup;
+
+            ObservableCollection<User> users = Client.getuserByGroup(userGroup.group);
+            groupName.Content = userGroup.group.name;
+            foreach (Test test in userGroup.group.tests)
+            {
+                tests.Add(test);
+            }
+            foreach (User user in users)
+            {
+                subscribers.Add(user);
+            }
+
+            invitationLink.Content = "Invitation link: " + userGroup.group.invitationLink;
+            if (!userGroup.is_admin)
+            {
+                button_publish_test.IsEnabled = false;
+                delete_test_from_group.IsEnabled = false;
+                copyLink.Visibility = Visibility.Hidden;
+                deleteGroup.Content = "Delete group";
+
+
+            }
+            if (userGroup.group.security_status == Group.Security.Private && !userGroup.is_admin)
+            {
+                invitationLink.Content = "sorry, This is a private group, only the admin can invite";
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (mainUserGroup.is_admin)
+            if (userGroup.is_admin)
             {
-                Client.deleteGroup(mainUserGroup.group.id_group);
+                Client.deleteGroup(userGroup.group.id_group);
             }
             else
             {
-                long id = Client.getIdByUserAndGroup(mainUserGroup);
+                long id = Client.getIdByUserAndGroup(userGroup);
                 Client.deleteuserGroup(id);
             }
-            MainWindow.groups.Remove(mainUserGroup);
+            MainWindow.groups.Remove(userGroup);
             Close();
         }
 
-        public void showLink(String link)
-        {
-            invitationLink.Content = "Invitation link: " + link;
-            invitationLink.Visibility = Visibility.Visible;
-            copyLink.Visibility = Visibility.Visible;
-            button_publish_test.Visibility = Visibility.Visible;
-            deleteGroup.Content = "delete group";
-        }
 
         private void copyLink_Click_CopyLink(object sender, RoutedEventArgs e)
         {
             try
             {
-                Clipboard.SetText(mainUserGroup.group.invitationLink);
+                Clipboard.SetText(userGroup.group.invitationLink);
             }
             catch(Exception ww) {
                 MessageBox.Show(ww.ToString());
@@ -73,17 +96,16 @@ namespace TestCreator
             if(listSubscribers.SelectedItem != null)
             {
                 User user = listSubscribers.SelectedItem as User;
-                UserViewWindow userViewWindow = new UserViewWindow();
-                userViewWindow.set_info(user);
-                userViewWindow.Show();
+                MyProfileWindow window = new MyProfileWindow();
+                window.init(user, userGroup.user);
+                window.Show();
             }
-           
         }
 
         private void Button_Click_addTest(object sender, RoutedEventArgs e)
         {
             ChooseTestWindow testWindow = new ChooseTestWindow();
-            testWindow.setData(mainUserGroup, this);
+            testWindow.setData(userGroup, this);
             testWindow.Show();
         }
 
@@ -93,8 +115,35 @@ namespace TestCreator
             {
                 Test test = listTests.SelectedItem as Test;
                 tests.Remove(test);
-                mainUserGroup.group.tests.Remove(test);
-                Client.updateGroup(mainUserGroup.group, mainUserGroup.group.id_group);
+                userGroup.group.tests.Remove(test);
+                Client.updateGroup(userGroup.group, userGroup.group.id_group);
+            }
+        }
+
+        private void Button_Click_Subscribers(object sender, RoutedEventArgs e)
+        {
+            invitationLink.Visibility = Visibility.Visible;
+            copyLink.Visibility = Visibility.Visible;
+            listSubscribers.Visibility = Visibility.Visible;
+            listTests.Visibility = Visibility.Hidden;
+        }
+
+        private void Button_Click_Tests(object sender, RoutedEventArgs e)
+        {
+            invitationLink.Visibility = Visibility.Hidden;
+            copyLink.Visibility = Visibility.Hidden;
+            listSubscribers.Visibility = Visibility.Hidden;
+            listTests.Visibility = Visibility.Visible;
+        }
+
+        private void listTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (listTests.SelectedItem != null)
+            {
+                ViewTest viewTest = new ViewTest();
+                viewTest.init(userGroup.user);
+                viewTest.Show();
+                viewTest.loadTest(listTests.SelectedItem as Test);
             }
         }
     }

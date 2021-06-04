@@ -22,6 +22,7 @@ namespace TestCreator
         public bool answerIsChoose = false, savetest = true, updateTest = false;
         public long idTest;
         public int indexTest;
+        private User user;
 
         public static Dictionary<long, long> dicAnswerQuestion = new Dictionary<long, long>();
 
@@ -31,6 +32,11 @@ namespace TestCreator
             listQustions.Clear();
             ListViewQuestions.ItemsSource = listQustions;
             listQustions.Add(new QuestionFragment());
+        }
+
+        public void init(User user)
+        {
+            this.user = user;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -217,16 +223,13 @@ namespace TestCreator
                     }
                     else
                     {
-                      
-                        //Client.addTest(test);
-                        MainWindow.mainUser.tests.Add(test);
-                        MainWindow.mainUser = Client.updateUser(MainWindow.mainUser, MainWindow.mainUser.id_user);
-                        test.idTest = MainWindow.mainUser.tests[MainWindow.mainUser.tests.Count-1].idTest;
+                        user.tests.Add(test);
+                        user = Client.updateUser(user, user.id_user);
+                        test.idTest = user.tests[user.tests.Count-1].idTest;
                         MainWindow.tests.Add(test);
                         MainWindow.updateUserGroup();
                         MainWindow.updateTest();
                         MessageBox.Show("Test is save");
-
                     }
                    
                     this.Close();

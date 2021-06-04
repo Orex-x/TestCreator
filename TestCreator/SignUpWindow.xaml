@@ -22,9 +22,9 @@
         <Label Name="lWelkome" Content="Welcome"/>
         <TextBox x:Name="login" Height="25" VerticalAlignment="Bottom"  Grid.Row="1" />
         <Label Name="lLogin" Content="Login" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="password" Height="25" Grid.Row="2" VerticalAlignment="Bottom"/>
+        <PasswordBox x:Name="password" Height="25" Grid.Row="2" VerticalAlignment="Bottom"/>
         <Label Name="lPassword" Content="Password" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top"/>
-        <TextBox x:Name="confirm_password" Height="25" Grid.Row="3" VerticalAlignment="Bottom"/>
+        <PasswordBox x:Name="confirm_password" Height="25" Grid.Row="3" VerticalAlignment="Bottom"/>
         <Label Name="lConfirm_password" Content="Confirm password" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top"/>
         <TextBox x:Name="first_name" Height="25" Grid.Row="4" VerticalAlignment="Bottom"/>
         <Label Name="lName"  Content="Name" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top"/>
