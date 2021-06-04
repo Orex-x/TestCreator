@@ -13,7 +13,7 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <Button Content="Send test" HorizontalAlignment="Right" 
+        <Button x:Name="sendTest" Content="Send test" HorizontalAlignment="Right" 
                 Grid.Row="2"
                 Margin="0,0,10,10" VerticalAlignment="Bottom"
                 Height="30" Width="80" Click="Button_Click_SendTest"/>

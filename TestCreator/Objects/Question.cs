@@ -10,15 +10,14 @@ namespace TestCreator
 {
     public class Question
     {
-        string title;
-        List<Answer> answers;
-        bool isCheckBox;
-        int mark, numTrueAnswer;
+        public long id_question { get; set; }
+        public string title { set; get; }
+        public bool isCheckBox { set; get; }
+        public int mark { set; get; }
+        public int numTrueAnswer { set; get; }
 
-        public string Title { set; get; }
-        public List<Answer> Answers { set; get; }
-        public bool IsCheckBox { set; get; }
-        public int Mark { set; get; }
-        public int NumTrueAnswer { set; get; }
+        public ObservableCollection<Answer> answers { get; set; }
+
+        public ObservableCollection<Test> tests { get; set; }
     }
 }

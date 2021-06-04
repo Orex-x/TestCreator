@@ -40,7 +40,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="TitleQuestion"
+        <TextBox x:Name="titleQuestion"
             HorizontalAlignment="Center" 
                  TextWrapping="Wrap" VerticalAlignment="Center"
                  Height="30" Width="350" />

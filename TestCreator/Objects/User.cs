@@ -1,23 +1,24 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace TestCreator.Objects
 {
-    class User
+    public class User
     {
-        public const string ROLE_USER = "uSer";
-        public const string ROLE_ADMIN = "AdMiN";
+        public long id_user { get; set; }
+        public string first_name { get; set; }
+        public string surname { get; set; }
+        public string last_name { get; set; }
+        public string login { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+        public string activationCode { get; set; }
 
-        string role, login, password, name, surname, patronomyc; 
+        public ObservableCollection<Test> tests { get; set; }
 
+        public ObservableCollection<PassedTest> passedTests { get; set; }
 
-
-        public string Lole { set; get; }
-        public string Login { set; get; }
-        public string Password { set; get; }
-        public string Name { set; get; }
-        public string Surname { set; get; }
-        public string Patronomyc { set; get; }
     }
 }

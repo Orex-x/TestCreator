@@ -22,11 +22,11 @@ namespace TestCreator
         }
 
 
-        public static CheckBox getCheckBox(double width, double height, Thickness margin, bool check, Object o, 
+        public static CheckBox getCheckBox(double height, Thickness margin, bool check, Object o, 
            HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment)
         {
             CheckBox textBoxtitle = new CheckBox();
-            textBoxtitle.Width = width;
+            //textBoxtitle.Width = width;
             textBoxtitle.Height = height;
             textBoxtitle.Margin = margin;
             textBoxtitle.Content = o;

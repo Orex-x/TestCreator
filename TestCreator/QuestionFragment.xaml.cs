@@ -37,12 +37,12 @@ namespace TestCreator
             TextBox box2 = new TextBox();
             box2.Text = "Answer #" + listCheckBox.Count;
 
-            RadioButton rb = CreateElementUI.getRadioButton(100, 20, new Thickness(0, 0, 0, 0), false, box1, CreateTest.listQustions.IndexOf(qf).ToString(),
+            RadioButton rb = CreateElementUI.getRadioButton(100, 35, new Thickness(0, 0, 0, 0), false, box1, CreateTest.listQustions.IndexOf(qf).ToString(),
                  HorizontalAlignment.Left, VerticalAlignment.Top);
 
-          
 
-            CheckBox ch = CreateElementUI.getCheckBox(100, 20, new Thickness(0, 0, 0, 0), false, box2,
+
+            CheckBox ch = CreateElementUI.getCheckBox( 35, new Thickness(0, 0, 0, 0), false, box2,
                  HorizontalAlignment.Left, VerticalAlignment.Top);
 
             qf.listCheckBox.Add(ch);

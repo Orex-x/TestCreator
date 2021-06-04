@@ -1,0 +1,97 @@
+﻿<Window x:Class="TestCreator.UserViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        mc:Ignorable="d"
+        Title="UserViewWindow" Height="350" Width="500">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="firstName" Content="dsfg" Visibility="Hidden" HorizontalAlignment="Left" Margin="5,0,5,0" VerticalAlignment="Center"/>
+        <Label x:Name="lastName" Content="sdfg"  Visibility="Hidden" HorizontalAlignment="Left" Grid.Row="1" Margin="5,0,5,0" VerticalAlignment="Top"/>
+        <Label x:Name="email" Content="sdfg"     Visibility="Hidden" HorizontalAlignment="Left"  Grid.Row="2"  Margin="5,0,5,0" VerticalAlignment="Top"/>
+
+        <TextBox x:Name="textBoxfirstName" Text="dsfg" HorizontalAlignment="Left" Margin="5,0,5,0" VerticalAlignment="Center"/>
+        <TextBox x:Name="textBoxlastName" Text="sdfg" HorizontalAlignment="Left" Grid.Row="1" Margin="5,0,5,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxemail" Text="sdfg" HorizontalAlignment="Left"  Grid.Row="2"  Margin="5,0,5,0" VerticalAlignment="Top"/>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Groups" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ListView  x:Name="listGroups" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Width="300" Text="{Binding Path=name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+
+            <Label x:Name="labelTests" HorizontalAlignment="Left" Grid.Column="1"  VerticalAlignment="Top"/>
+            <ListView  x:Name="listTests" Grid.Row="1" Grid.Column="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Width="300" Text="{Binding Path=title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+
+            <Label x:Name="labelPassedTest" Content="Passed test" HorizontalAlignment="Left" Grid.Column="2"  VerticalAlignment="Top"/>
+            <ListView  x:Name="listPassetTests" Grid.Row="1" Grid.Column="2">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Width="300" Text="{Binding Path=test.title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+        </Grid>
+        
+      
+       
+
+    </Grid>
+</Window>
