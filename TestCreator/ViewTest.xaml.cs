@@ -45,6 +45,8 @@ namespace TestCreator
         public void loadTest(PassedTest passedTest)
         {
             sendTest.Visibility = Visibility.Hidden;
+            Result.Visibility = Visibility.Visible;
+            Result.Content = "Result: " + passedTest.result;
             this.passedTest = passedTest;
             labelTitleTest.Content = passedTest.test.title;
 

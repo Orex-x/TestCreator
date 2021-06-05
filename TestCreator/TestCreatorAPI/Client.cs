@@ -134,9 +134,6 @@ namespace TestCreator.TestCreatorAPI
             return sendRequest("", uri, Method.GET);
         }
 
-
-    
-
         public static void deleteUserByLogin(string login)
         {
             string uri = GenerateUrl(Urls.usersLogin + login);

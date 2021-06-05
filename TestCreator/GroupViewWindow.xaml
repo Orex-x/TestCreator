@@ -25,9 +25,9 @@
             </Grid.ColumnDefinitions>
             <Button Content="Subscribers" Click="Button_Click_Subscribers" />
             <Button Content="Testst" Grid.Column="1" Click="Button_Click_Tests"/>
-         
 
-            <Button x:Name="deleteGroup" Content="Leave"  Click="Button_Click" Grid.Column="4"/>
+
+            <Button x:Name="deleteGroup" Content="Delete group"  Click="Button_Click" Grid.Column="4"/>
             <Button x:Name="button_publish_test" Content="publish test" Grid.Column="2" Click="Button_Click_addTest"/>
             <Button x:Name="delete_test_from_group" Content="delete test" Grid.Column="3" Click="delete_test_from_group_Click"/>
 

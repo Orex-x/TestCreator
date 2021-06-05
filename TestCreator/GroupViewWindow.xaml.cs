@@ -52,13 +52,13 @@ namespace TestCreator
             {
                 button_publish_test.IsEnabled = false;
                 delete_test_from_group.IsEnabled = false;
-                copyLink.Visibility = Visibility.Hidden;
-                deleteGroup.Content = "Delete group";
+                deleteGroup.Content = "Leave";
 
 
             }
             if (userGroup.group.security_status == Group.Security.Private && !userGroup.is_admin)
             {
+                copyLink.IsEnabled = false;
                 invitationLink.Content = "sorry, This is a private group, only the admin can invite";
             }
         }
@@ -98,15 +98,17 @@ namespace TestCreator
                 User user = listSubscribers.SelectedItem as User;
                 MyProfileWindow window = new MyProfileWindow();
                 window.init(user, userGroup.user);
+                MainWindow.winds.Add(window);
                 window.Show();
             }
         }
 
         private void Button_Click_addTest(object sender, RoutedEventArgs e)
         {
-            ChooseTestWindow testWindow = new ChooseTestWindow();
-            testWindow.setData(userGroup, this);
-            testWindow.Show();
+            ChooseTestWindow window = new ChooseTestWindow();
+            window.setData(userGroup, this);
+            window.Show();
+            MainWindow.winds.Add(window);
         }
 
         private void delete_test_from_group_Click(object sender, RoutedEventArgs e)
@@ -140,10 +142,11 @@ namespace TestCreator
         {
             if (listTests.SelectedItem != null)
             {
-                ViewTest viewTest = new ViewTest();
-                viewTest.init(userGroup.user);
-                viewTest.Show();
-                viewTest.loadTest(listTests.SelectedItem as Test);
+                ViewTest window = new ViewTest();
+                window.init(userGroup.user);
+                window.Show();
+                MainWindow.winds.Add(window);
+                window.loadTest(listTests.SelectedItem as Test);
             }
         }
     }

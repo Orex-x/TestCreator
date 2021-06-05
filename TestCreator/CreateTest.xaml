@@ -13,6 +13,8 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
+        <TextBox x:Name="ThemeTest" Text="Text theme"/>
+
         <ListView x:Name="ListViewQuestions" Grid.Row="1">
             <ListView.View>
                 <GridView>
@@ -20,19 +22,20 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add qustion" HorizontalAlignment="Left"
-                Margin="10,0,0,10" VerticalAlignment="Bottom"
-                Grid.Row="2"
-                Click="Button_Click"/>
 
-        <Button Content="save test" HorizontalAlignment="Left" 
-                Margin="90,0,0,10" VerticalAlignment="Bottom" 
-                Grid.Row="2"
-                Click="Button_Click_Save_Test"/>
-        <TextBox x:Name="ThemeTest"
-            HorizontalAlignment="Center" Text="Text theme" 
-                 TextWrapping="Wrap" VerticalAlignment="Center" 
-                 Width="400" Height="28"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Add qustion" Click="Button_Click"/>
+            <Button Content="Delete question" Grid.Column="1" Click="Button_Click_DeleteQuestion"/>
+            <Button Content="save test" Grid.Column="2" Click="Button_Click_Save_Test"/>
+        </Grid>
+       
+      
 
     </Grid>
 </Window>

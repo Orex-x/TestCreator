@@ -19,6 +19,7 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
 
             <Label Content="Test creator" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
@@ -26,6 +27,7 @@
             <Button Content="My tests" Grid.Row="2" Click="Button_MyTests_Click"/>
             <Button Content="Solved tests" Grid.Row="3" Click="Button_SolvedTests_Click"/>
             <Button Content="Groups" Grid.Row="4" Click="Button_Groups_Click"/>
+            <Button Content="Exit" Grid.Row="5" Click="Button_Click_Exit"/>
         </Grid>
 
         <Grid Grid.Column="1">

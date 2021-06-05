@@ -44,6 +44,14 @@ namespace TestCreator
             listQustions.Add(new QuestionFragment());
         }
 
+        private void Button_Click_DeleteQuestion(object sender, RoutedEventArgs e)
+        {
+            if (ListViewQuestions.SelectedItem != null)
+            {
+                listQustions.Remove(ListViewQuestions.SelectedItem as QuestionFragment);
+            }
+        }
+
         public void loadTest(Test test)
         {
             updateTest = true;
@@ -92,156 +100,160 @@ namespace TestCreator
 
         private void Button_Click_Save_Test(object sender, RoutedEventArgs e)
         {
-            savetest = true;
-            Test test = new Test();
-            test.questions = new ObservableCollection<Question>();
-            if (ThemeTest.Text.Length > 0)
+            if (listQustions.Count != 0)
             {
-                test.title = ThemeTest.Text;
-                //проходимся по списку вопросов
-                for (int i = 0; i < listQustions.Count; i++)
+                savetest = true;
+                Test test = new Test();
+                test.questions = new ObservableCollection<Question>();
+                if (ThemeTest.Text.Length > 0)
                 {
-                    QuestionFragment qf = listQustions[i];
-                    if (qf.titleQuestion.Text.Length > 0)
+                    test.title = ThemeTest.Text;
+                    //проходимся по списку вопросов
+                    for (int i = 0; i < listQustions.Count; i++)
                     {
-                        Question question = new Question();
-                        int numTrueAnswer = 0;
-                        answerIsChoose = false;
-                        question.title = qf.titleQuestion.Text;
-                        question.answers = new ObservableCollection<Answer>();
-                        if (qf.listAnswers.Items.Count == 0)
+                        QuestionFragment qf = listQustions[i];
+                        if (qf.titleQuestion.Text.Length > 0)
                         {
-
-                        }
-                        else if (qf.listAnswers.Items.Count > 1)
-                        {
-                            if (qf.TextBoxMark.Text.Length > 0)
+                            Question question = new Question();
+                            int numTrueAnswer = 0;
+                            answerIsChoose = false;
+                            question.title = qf.titleQuestion.Text;
+                            question.answers = new ObservableCollection<Answer>();
+                            if (qf.listAnswers.Items.Count == 0)
                             {
-                                try
-                                {
-                                    int mark = Convert.ToInt32(qf.TextBoxMark.Text);
-                                    question.mark = mark;
-                                }
-                                catch (Exception ee)
-                                {
-                                    qf.labelError.Content = "Mark not number";
-                                    savetest = false;
-                                }
 
-                                //какой обьект будет использоваться
-                                if (qf.CheckBoxQuizMode.IsChecked == true)
+                            }
+                            else if (qf.listAnswers.Items.Count > 1)
+                            {
+                                if (qf.TextBoxMark.Text.Length > 0)
                                 {
-                                    question.isCheckBox = false;
-                                    //проходимся по списку ответов
-                                    for (int j = 0; j < qf.listAnswers.Items.Count; j++)
+                                    try
                                     {
-                                        RadioButton rb = qf.listAnswers.Items[j] as RadioButton;
-                                        Answer answer = new Answer();
-                                        if ((rb.Content as TextBox).Text.Length > 0)
+                                        int mark = Convert.ToInt32(qf.TextBoxMark.Text);
+                                        question.mark = mark;
+                                    }
+                                    catch (Exception ee)
+                                    {
+                                        qf.labelError.Content = "Mark not number";
+                                        savetest = false;
+                                    }
+
+                                    //какой обьект будет использоваться
+                                    if (qf.CheckBoxQuizMode.IsChecked == true)
+                                    {
+                                        question.isCheckBox = false;
+                                        //проходимся по списку ответов
+                                        for (int j = 0; j < qf.listAnswers.Items.Count; j++)
                                         {
-                                            answer.title = (rb.Content as TextBox).Text;
-                                            answer.isTrue = rb.IsChecked.Value;
-                                            answer.groupName = rb.GroupName;
-                                            if (rb.IsChecked == true)
+                                            RadioButton rb = qf.listAnswers.Items[j] as RadioButton;
+                                            Answer answer = new Answer();
+                                            if ((rb.Content as TextBox).Text.Length > 0)
                                             {
-                                                numTrueAnswer++;
-                                                answerIsChoose = true;
+                                                answer.title = (rb.Content as TextBox).Text;
+                                                answer.isTrue = rb.IsChecked.Value;
+                                                answer.groupName = rb.GroupName;
+                                                if (rb.IsChecked == true)
+                                                {
+                                                    numTrueAnswer++;
+                                                    answerIsChoose = true;
+                                                }
+                                                question.answers.Add(answer);
                                             }
-                                            question.answers.Add(answer);
+                                            else
+                                            {
+                                                savetest = false;
+                                                qf.labelError.Content = "Answer titile is null";
+                                            }
                                         }
-                                        else
+                                    }
+                                    else
+                                    {
+                                        question.isCheckBox = true;
+                                        //проходимся по списку ответов
+                                        for (int j = 0; j < qf.listAnswers.Items.Count; j++)
                                         {
-                                            savetest = false;
-                                            qf.labelError.Content = "Answer titile is null";
+                                            CheckBox ch = qf.listAnswers.Items[j] as CheckBox;
+                                            Answer answer = new Answer();
+                                            if ((ch.Content as TextBox).Text.Length > 0)
+                                            {
+                                                answer.title = (ch.Content as TextBox).Text;
+                                                answer.isTrue = ch.IsChecked.Value;
+                                                if (ch.IsChecked == true)
+                                                {
+                                                    numTrueAnswer++;
+                                                    answerIsChoose = true;
+                                                }
+                                                question.answers.Add(answer);
+                                            }
+                                            else
+                                            {
+                                                savetest = false;
+                                                qf.labelError.Content = "Answer titile is null";
+                                            }
                                         }
+                                    }
+                                    question.numTrueAnswer = numTrueAnswer;
+                                    if (answerIsChoose)
+                                    {
+                                        test.questions.Add(question);
+                                    }
+                                    else
+                                    {
+                                        qf.labelError.Content = "Choose true answer";
+                                        savetest = false;
                                     }
                                 }
                                 else
                                 {
-                                    question.isCheckBox = true;
-                                    //проходимся по списку ответов
-                                    for (int j = 0; j < qf.listAnswers.Items.Count; j++)
-                                    {
-                                        CheckBox ch = qf.listAnswers.Items[j] as CheckBox;
-                                        Answer answer = new Answer();
-                                        if ((ch.Content as TextBox).Text.Length > 0)
-                                        {
-                                            answer.title = (ch.Content as TextBox).Text;
-                                            answer.isTrue = ch.IsChecked.Value;
-                                            if (ch.IsChecked == true)
-                                            {
-                                                numTrueAnswer++;
-                                                answerIsChoose = true;
-                                            }
-                                            question.answers.Add(answer);
-                                        }
-                                        else
-                                        {
-                                            savetest = false;
-                                            qf.labelError.Content = "Answer titile is null";
-                                        }
-                                    }
-                                }
-                                question.numTrueAnswer = numTrueAnswer;
-                                if (answerIsChoose)
-                                {
-                                    test.questions.Add(question);
-                                }
-                                else
-                                {
-                                    qf.labelError.Content = "Choose true answer";
+                                    qf.labelError.Content = "Mark is null";
                                     savetest = false;
                                 }
                             }
                             else
                             {
-                                qf.labelError.Content = "Mark is null";
+                                qf.labelError.Content = "Answers is null";
                                 savetest = false;
                             }
                         }
                         else
                         {
-                            qf.labelError.Content = "Answers is null";
+                            qf.labelError.Content = "Titile question is null";
                             savetest = false;
                         }
                     }
-                    else
+                    if (savetest)
                     {
-                        qf.labelError.Content = "Titile question is null";
-                        savetest = false;
+
+                        if (updateTest)
+                        {
+                            Client.updateTest(test, idTest);
+                            MainWindow.tests.RemoveAt(indexTest);
+                            MainWindow.tests.Insert(indexTest, test);
+                            MessageBox.Show("Test is update");
+                        }
+                        else
+                        {
+                            user.tests.Add(test);
+                            user = Client.updateUser(user, user.id_user);
+                            test.idTest = user.tests[user.tests.Count - 1].idTest;
+                            MainWindow.tests.Add(test);
+                            MainWindow.updateUserGroup();
+                            MainWindow.updateTest();
+                            MessageBox.Show("Test is save");
+                        }
+
+                        this.Close();
+
+
                     }
                 }
-                if (savetest)
+                else
                 {
-
-                    if (updateTest)
-                    {
-                        Client.updateTest(test, idTest);
-                        MainWindow.tests.RemoveAt(indexTest);
-                        MainWindow.tests.Insert(indexTest, test);
-                        MessageBox.Show("Test is update");
-                    }
-                    else
-                    {
-                        user.tests.Add(test);
-                        user = Client.updateUser(user, user.id_user);
-                        test.idTest = user.tests[user.tests.Count-1].idTest;
-                        MainWindow.tests.Add(test);
-                        MainWindow.updateUserGroup();
-                        MainWindow.updateTest();
-                        MessageBox.Show("Test is save");
-                    }
-                   
-                    this.Close();
-
-
+                    MessageBox.Show("Titile test is null");
+                    savetest = false;
                 }
-            }
-            else
-            {
-                MessageBox.Show("Titile test is null");
-                savetest = false;
-            }
+            }else
+                MessageBox.Show("The test has no questions");
         }   
     }
 }

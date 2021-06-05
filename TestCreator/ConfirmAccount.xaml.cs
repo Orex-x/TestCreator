@@ -36,9 +36,9 @@ namespace TestCreator
         private void Button_Click_back(object sender, RoutedEventArgs e)
         {
             Client.deleteUserByLogin(user.login);
-            SignUpWindow signUpWindow = new SignUpWindow();
-            signUpWindow.setInfo(user);
-            signUpWindow.Show();
+            SignUpWindow window = new SignUpWindow();
+            window.setInfo(user);
+            window.Show();
             Close();
         }
 
@@ -54,9 +54,15 @@ namespace TestCreator
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.init(user);
                 mainWindow.Show();
+                Database.savedata(
+                                new User
+                                {
+                                    login = user.login,
+                                    password = user.password
+                                }
+                                );
                 Close();
             }
-
         }
     }
 }

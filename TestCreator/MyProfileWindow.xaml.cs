@@ -45,6 +45,22 @@ namespace TestCreator
             Confirmpassword.Password = "";
 
 
+            if (parentUser != null)
+            {
+                firstName.IsEnabled = false;
+                surname.IsEnabled = false;
+                email.IsEnabled = false;
+                login.IsEnabled = false;
+                patronymic.IsEnabled = false;
+                firstName.IsEnabled = false;
+                password.IsEnabled = false;
+                Confirmpassword.IsEnabled = false;
+                ButtonApplyEdit.IsEnabled = false;
+            }
+
+           
+
+
 
 
             ObservableCollection<Group> groups2 = Client.getGroupsByUser(user);
@@ -181,13 +197,14 @@ namespace TestCreator
         {
             if (listTests.SelectedItem != null)
             {
-                ViewTest viewTest = new ViewTest();
+                ViewTest window = new ViewTest();
                 if (parentUser == null)
-                    viewTest.init(user);
+                    window.init(user);
                 else
-                    viewTest.init(parentUser);
-                viewTest.Show();
-                viewTest.loadTest(listTests.SelectedItem as Test);
+                    window.init(parentUser);
+                window.Show();
+                MainWindow.winds.Add(window);
+                window.loadTest(listTests.SelectedItem as Test);
             }
         }
 
@@ -195,13 +212,14 @@ namespace TestCreator
         {
             if (listPassetTests.SelectedItem != null)
             {
-                ViewTest viewTest = new ViewTest();
+                ViewTest window = new ViewTest();
                 if (parentUser == null)
-                    viewTest.init(user);
+                    window.init(user);
                 else
-                    viewTest.init(parentUser);
-                viewTest.loadTest(listPassetTests.SelectedItem as PassedTest);
-                viewTest.Show();
+                    window.init(parentUser);
+                window.loadTest(listPassetTests.SelectedItem as PassedTest);
+                MainWindow.winds.Add(window);
+                window.Show();
             }
         }
     }

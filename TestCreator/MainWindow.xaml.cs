@@ -24,6 +24,7 @@ namespace TestCreator
         public static ObservableCollection<Test> tests = new ObservableCollection<Test>();
         public static ObservableCollection<UserGroup> groups = new ObservableCollection<UserGroup>();
         public static ObservableCollection<PassedTest> passedTests = new ObservableCollection<PassedTest>();
+        public static List<Window> winds = new List<Window>();
 
 
         private static User mainUser;
@@ -97,10 +98,11 @@ namespace TestCreator
 
                 if(Client.findGroupTestByTest(test) == "false")
                 {
-                    CreateTest createTest = new CreateTest();
-                    createTest.init(mainUser);
-                    createTest.Show();
-                    createTest.loadTest(test);
+                    CreateTest window = new CreateTest();
+                    window.init(mainUser);
+                    window.Show();
+                    winds.Add(window);
+                    window.loadTest(test);
                 }
                 else
                 {
@@ -116,10 +118,11 @@ namespace TestCreator
         {
             if (listTests.SelectedItem != null)
             {
-                ViewTest viewTest = new ViewTest();
-                viewTest.init(mainUser);
-                viewTest.Show();
-                viewTest.loadTest(listTests.SelectedItem as Test);
+                ViewTest window = new ViewTest();
+                window.init(mainUser);
+                window.Show();
+                winds.Add(window);
+                window.loadTest(listTests.SelectedItem as Test);
             }
         }
 
@@ -128,16 +131,18 @@ namespace TestCreator
 
         private void Button_ClickSearchGroup(object sender, RoutedEventArgs e)
         {
-            SearchGroup searchGroup = new SearchGroup();
-            searchGroup.init(mainUser);
-            searchGroup.Show();
+            SearchGroup window = new SearchGroup();
+            window.init(mainUser);
+            window.Show();
+            winds.Add(window);
         }
 
         private void Button_ClickAddGroup(object sender, RoutedEventArgs e)
         {
-            AddGroup addGroup = new AddGroup();
-            addGroup.init(mainUser);
-            addGroup.Show();
+            AddGroup window = new AddGroup();
+            window.init(mainUser);
+            window.Show();
+            winds.Add(window);
         }
 
         private void listGroups_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -147,10 +152,10 @@ namespace TestCreator
             if (listView.SelectedItem != null)
             {
                 UserGroup userGroup = listView.SelectedItem as UserGroup;
-                GroupViewWindow groupViewWindow = new GroupViewWindow();
-                groupViewWindow.init(userGroup);
-                
-                groupViewWindow.Show();
+                GroupViewWindow window = new GroupViewWindow();
+                window.init(userGroup);
+                winds.Add(window);
+                window.Show();
             }
         }
 
@@ -170,10 +175,11 @@ namespace TestCreator
         {
             if (listPassedTests.SelectedItem != null)
             {
-                ViewTest viewTest = new ViewTest();
-                viewTest.init(mainUser);
-                viewTest.loadTest(listPassedTests.SelectedItem as PassedTest);
-                viewTest.Show();
+                ViewTest window = new ViewTest();
+                window.init(mainUser);
+                window.loadTest(listPassedTests.SelectedItem as PassedTest);
+                winds.Add(window);
+                window.Show();
             }
 
 
@@ -185,6 +191,7 @@ namespace TestCreator
             MyProfileWindow window = new MyProfileWindow();
             window.init(mainUser, null);
             window.Show();
+            winds.Add(window);
 
         }
 
@@ -234,6 +241,19 @@ namespace TestCreator
         private void listTests_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Button_Click_EditTest(null, null);
+        }
+
+        private void Button_Click_Exit(object sender, RoutedEventArgs e)
+        {
+            
+            foreach(Window w in winds)
+            {
+                w.Close();
+            }
+            SignInWindow signInWindow = new SignInWindow();
+            signInWindow.Show();
+            Database.DeleteFile(Database.FILE_LOG);
+            this.Close(); 
         }
     }
 }

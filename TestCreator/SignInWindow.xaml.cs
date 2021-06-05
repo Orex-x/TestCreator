@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +21,16 @@ namespace TestCreator
         public SignInWindow()
         {
             InitializeComponent();
+
+
+
+            if (File.Exists(Database.FILE_LOG))
+            {
+                User user = Database.getdata();
+                login.Text = user.login;
+                password.Password = user.password;
+            }
+
         }
 
         private void Button_Click_signIn(object sender, RoutedEventArgs e)
@@ -35,6 +47,13 @@ namespace TestCreator
                             MainWindow mainWindow = new MainWindow();
                             mainWindow.init(user);
                             mainWindow.Show();
+                            Database.savedata(
+                                new User
+                                {
+                                    login = user.login,
+                                    password = user.password
+                                }
+                                );
                             Close();
                         }
                         else
@@ -49,6 +68,7 @@ namespace TestCreator
                     MessageBox.Show("wrong login or password");
             }
         }
+
 
         private void Button_Click_signUp(object sender, RoutedEventArgs e)
         {

@@ -64,9 +64,22 @@ namespace TestCreator
                         group = group,
                         is_admin = false
                     };
-                    Boolean add = Convert.ToBoolean(Client.addUserGroup(userGroup));
-                    if (add)
-                        MainWindow.groups.Add(userGroup);
+                    if (group.security_status == Group.Security.Private)
+                    {
+                        EnterPasswordGruop window = new EnterPasswordGruop();
+                        window.init(userGroup);
+                        MainWindow.winds.Add(window);
+                        window.Show();
+                    }
+                    else
+                    {
+                        Boolean add = Convert.ToBoolean(Client.addUserGroup(userGroup));
+                        if (add)
+                            MainWindow.groups.Add(userGroup);
+                    }
+
+                   
+                   
                 }
                 else
                     MessageBox.Show("invalid invitation link");
@@ -82,9 +95,10 @@ namespace TestCreator
                     group = group,
                     is_admin = false
                 };
-                Boolean add = Convert.ToBoolean(Client.addUserGroup(userGroup)); 
-                if(add)
-                    MainWindow.groups.Add(userGroup);
+                EnterPasswordGruop window = new EnterPasswordGruop();
+                window.init(userGroup);
+                MainWindow.winds.Add(window);
+                window.Show();
             }
         }
     }

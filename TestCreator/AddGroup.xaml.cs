@@ -32,32 +32,41 @@ namespace TestCreator
 
         private void Button_Click_AddGroup(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(group_name.Text) && !string.IsNullOrEmpty(group_password.Text))
+            if (!string.IsNullOrEmpty(group_name.Text) && 
+                !string.IsNullOrEmpty(group_password.Password) &&
+                  !string.IsNullOrEmpty(group_comfirm_password.Password))
             {
-                Group Addgroup = new Group
+                if (group_comfirm_password.Password == group_password.Password)
                 {
-                    name = group_name.Text,
-                    password = group_password.Text
-                };
-                if (radioButtonPublic.IsChecked == true)
-                    Addgroup.security_status = Group.Security.Public;
+
+                    Group Addgroup = new Group
+                    {
+                        name = group_name.Text,
+                        password = group_password.Password
+                    };
+                    if (radioButtonPublic.IsChecked == true)
+                        Addgroup.security_status = Group.Security.Public;
+                    else
+                        Addgroup.security_status = Group.Security.Private;
+
+                    long id = Convert.ToInt32(Client.addGroup(Addgroup));
+                    Addgroup.id_group = id;
+
+                    UserGroup userGroup = new UserGroup()
+                    {
+                        is_admin = true,
+                        group = Addgroup,
+                        user = user
+                    };
+
+                    Client.addUserGroup(userGroup);
+                    MainWindow.updateUserGroup();
+                    MessageBox.Show("group was added");
+                    Close();
+                }
                 else
-                    Addgroup.security_status = Group.Security.Private;
+                    MessageBox.Show("Password mismatch");
 
-                long id = Convert.ToInt32(Client.addGroup(Addgroup));
-                Addgroup.id_group = id;
-
-                UserGroup userGroup = new UserGroup()
-                {
-                    is_admin = true,
-                    group = Addgroup,
-                    user = user
-                };
-
-                Client.addUserGroup(userGroup);
-                MainWindow.updateUserGroup();
-                MessageBox.Show("group was added");
-                Close();
 
             }
             else
