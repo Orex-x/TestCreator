@@ -51,7 +51,6 @@ namespace TestCreator
                 listQustions.Remove(ListViewQuestions.SelectedItem as QuestionFragment);
             }
         }
-
         public void loadTest(Test test)
         {
             updateTest = true;
@@ -88,7 +87,7 @@ namespace TestCreator
                         TextBox textBox = new TextBox();
                         textBox.Text = questions.answers[i].title;
 
-                        RadioButton rb = CreateElementUI.getRadioButton(100, 20, new Thickness(0, 0, 0, 0),
+                        RadioButton rb = CreateElementUI.getRadioButton(20, new Thickness(0, 0, 0, 0),
                             questions.answers[i].isTrue, textBox, questions.answers[i].groupName, HorizontalAlignment.Left, VerticalAlignment.Top);
                         qf.listRadioButton.Add(rb);
                     }
@@ -243,8 +242,6 @@ namespace TestCreator
                         }
 
                         this.Close();
-
-
                     }
                 }
                 else

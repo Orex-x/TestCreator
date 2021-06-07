@@ -28,7 +28,6 @@ namespace TestCreator
             InitializeComponent();
             listTests.ItemsSource = tests;
         }
-
         public void setData(UserGroup userGroup, GroupViewWindow groupViewWindow)
         {
             tests.Clear();
@@ -51,17 +50,14 @@ namespace TestCreator
                     {
                         exists = true;
                         break;
-                    }
-                        
+                    }   
                 }
-           
                 if(!exists)
                 {
                     groupViewWindow.tests.Add(test);
                     userGroup.group.tests.Add(test);
                     Client.updateGroup(userGroup.group, userGroup.group.id_group);
-                }
-                  
+                }  
             }
         }
     }

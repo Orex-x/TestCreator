@@ -3,21 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TestCreator.Objects;
 using TestCreator.TestCreatorAPI;
 
 namespace TestCreator
 {
-    /// <summary>
-    /// Логика взаимодействия для UserViewWindow.xaml
-    /// </summary>
     public partial class UserViewWindow : Window
     {
         public static ObservableCollection<Group> groups = new ObservableCollection<Group>();
@@ -70,7 +60,6 @@ namespace TestCreator
             textBoxfirstName.Visibility = Visibility.Visible;
             textBoxlastName.Visibility = Visibility.Visible;
             textBoxemail.Visibility = Visibility.Visible;
-
         }
     }
 }

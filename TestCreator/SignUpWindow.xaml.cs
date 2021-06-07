@@ -2,21 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TestCreator.Objects;
 using TestCreator.TestCreatorAPI;
 
 namespace TestCreator
 {
-    /// <summary>
-    /// Логика взаимодействия для SignUpWindow.xaml
-    /// </summary>
     public partial class SignUpWindow : Window
     {
         public SignUpWindow()
@@ -36,8 +26,6 @@ namespace TestCreator
 
         private void Button_ClickSignUp(object sender, RoutedEventArgs e)
         {
-
-
             if (!string.IsNullOrEmpty(first_name.Text) && !string.IsNullOrEmpty(surname.Text) &&
                !string.IsNullOrEmpty(last_name.Text) && !string.IsNullOrEmpty(login.Text) && !string.IsNullOrEmpty(email.Text)
             )
@@ -83,9 +71,6 @@ namespace TestCreator
                 MessageBox.Show("Fill in the fields");
             }
         }
-
-
-
         private void visibilityAllElements(Visibility visibility)
         {
             login.Visibility = visibility;

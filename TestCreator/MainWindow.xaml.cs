@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TestCreator.Objects;
 using TestCreator.TestCreatorAPI;
 
@@ -25,8 +15,6 @@ namespace TestCreator
         public static ObservableCollection<UserGroup> groups = new ObservableCollection<UserGroup>();
         public static ObservableCollection<PassedTest> passedTests = new ObservableCollection<PassedTest>();
         public static List<Window> winds = new List<Window>();
-
-
         private static User mainUser;
 
         public MainWindow()
@@ -36,10 +24,6 @@ namespace TestCreator
             listGroups.ItemsSource = groups;
             listPassedTests.ItemsSource = passedTests;
             Button_MyTests_Click(null, null);
-          //  mainUser = Client.getUserbyLogin("login");
-
-
-           
         }
 
         public void init(User user)
@@ -80,9 +64,6 @@ namespace TestCreator
             }
         }
 
-
-      
-
         private void Button_Click_AddTest(object sender, RoutedEventArgs e)
         {
             CreateTest createTest2 = new CreateTest();
@@ -111,9 +92,6 @@ namespace TestCreator
             }
         }
 
-
-     
-
         private void Button_Click_ViewTest(object sender, RoutedEventArgs e)
         {
             if (listTests.SelectedItem != null)
@@ -125,9 +103,6 @@ namespace TestCreator
                 window.loadTest(listTests.SelectedItem as Test);
             }
         }
-
-
-
 
         private void Button_ClickSearchGroup(object sender, RoutedEventArgs e)
         {
@@ -181,11 +156,7 @@ namespace TestCreator
                 winds.Add(window);
                 window.Show();
             }
-
-
-
         }
-
         private void Button_Click_OpenMyProfile(object sender, RoutedEventArgs e)
         {
             MyProfileWindow window = new MyProfileWindow();

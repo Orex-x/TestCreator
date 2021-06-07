@@ -28,9 +28,5 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
         </ListView>
-
-
     </Grid>
-
-
 </Window>

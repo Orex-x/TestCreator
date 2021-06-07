@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TestCreator.Objects;
 using TestCreator.TestCreatorAPI;
 
@@ -30,17 +21,14 @@ namespace TestCreator
             updateGroupList();
             listGroup.ItemsSource = groups;
         }
-
         public void init(User user)
         {
             this.user = user;
         }
-
         private void Button_ClickUpdate(object sender, RoutedEventArgs e)
         {
             updateGroupList();
         }
-
         private void updateGroupList()
         {
             groups.Clear();
@@ -50,7 +38,7 @@ namespace TestCreator
                     groups.Add(g);
             }
         }
-
+            
         private void Button_Click_Join(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(invitationLink.Text))
@@ -76,14 +64,10 @@ namespace TestCreator
                         Boolean add = Convert.ToBoolean(Client.addUserGroup(userGroup));
                         if (add)
                             MainWindow.groups.Add(userGroup);
-                    }
-
-                   
-                   
+                    } 
                 }
                 else
                     MessageBox.Show("invalid invitation link");
-
 
             }
             else if(listGroup.SelectedItem != null)

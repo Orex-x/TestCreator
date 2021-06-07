@@ -27,6 +27,5 @@
             </ListView.View>
         </ListView>
         <Label x:Name="Result" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2" Visibility="Hidden" VerticalAlignment="Center"/>
-
     </Grid>
 </Window>

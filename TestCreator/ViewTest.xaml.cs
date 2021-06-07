@@ -1,23 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TestCreator.Objects;
 using TestCreator.TestCreatorAPI;
 
 namespace TestCreator
 {
-    /// <summary>
-    /// Логика взаимодействия для ViewTest.xaml
-    /// </summary>
     public partial class ViewTest : Window
     {
 
@@ -26,15 +17,12 @@ namespace TestCreator
         private PassedTest passedTest;
         private User user;
 
-
-
         public ViewTest()
         {
             InitializeComponent();
             testViewers.Clear();
             listViewQuestions.ItemsSource = testViewers;
         }
-
 
         public void init(User user)
         {
@@ -65,7 +53,7 @@ namespace TestCreator
                         Label l = new Label();
                         Answer answer = question.answers[i];
                         if (answer.isTrue)
-                            l.Background = Brushes.Green;
+                            l.Background = new SolidColorBrush(Color.FromArgb(90, 0xF0, 0x00, 0xFF));
 
                         l.Content = answer.title;
                         CheckBox ch = CreateElementUI.getCheckBox(35, new Thickness(0, 0, 0, 0), false, l,
@@ -87,10 +75,10 @@ namespace TestCreator
                         Label l = new Label();
                         Answer answer = question.answers[i];
                         if (answer.isTrue)
-                            l.Background = Brushes.Green;
+                            l.Background = new SolidColorBrush(Color.FromArgb(90, 0xF0, 0x00, 0xFF));
                         l.Content = answer.title;
 
-                        RadioButton rb = CreateElementUI.getRadioButton(100, 35, new Thickness(0, 0, 0, 0),
+                        RadioButton rb = CreateElementUI.getRadioButton(35, new Thickness(0, 0, 0, 0),
                             false, l, answer.groupName, HorizontalAlignment.Left, VerticalAlignment.Top);
 
                         rb.IsEnabled = false;
@@ -106,8 +94,6 @@ namespace TestCreator
 
 
         }
-
-
         public static List<string> getPassedAnswersByQuestion(Question question,PassedTest passedTest)
         {
             List<string> passedAnswers = new List<string>();
@@ -118,8 +104,6 @@ namespace TestCreator
             }
             return passedAnswers;
         }
-
-
         //почему если вопросак два он лашает
         public void loadTest(Test test)
         {
@@ -150,7 +134,7 @@ namespace TestCreator
                         Label l = new Label();
                         l.Content = questions.answers[i].title;
 
-                        RadioButton rb = CreateElementUI.getRadioButton(100, 35, new Thickness(0, 0, 0, 0),
+                        RadioButton rb = CreateElementUI.getRadioButton(35, new Thickness(0, 0, 0, 0),
                             false, l, questions.answers[i].groupName, HorizontalAlignment.Left, VerticalAlignment.Top);
                         tw.radioButtonsAnswers.Add(rb);
                     }
@@ -229,10 +213,5 @@ namespace TestCreator
             MainWindow.updatePassedTest();
             MessageBox.Show("Вы небрали " + count + " баллов из " + countIsTrue);
         }
-
-
     }
-
-
-
 }

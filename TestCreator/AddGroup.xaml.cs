@@ -1,22 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TestCreator.Objects;
 using TestCreator.TestCreatorAPI;
 
 namespace TestCreator
 {
-    /// <summary>
-    /// Логика взаимодействия для AddGroup.xaml
-    /// </summary>
     public partial class AddGroup : Window
     {
         private User user;
@@ -38,7 +26,6 @@ namespace TestCreator
             {
                 if (group_comfirm_password.Password == group_password.Password)
                 {
-
                     Group Addgroup = new Group
                     {
                         name = group_name.Text,
@@ -66,8 +53,6 @@ namespace TestCreator
                 }
                 else
                     MessageBox.Show("Password mismatch");
-
-
             }
             else
                 MessageBox.Show("Empty fields");

@@ -24,15 +24,12 @@ namespace TestCreator
         {
             InitializeComponent();
         }
-
         public void setInfo(User user)
         {
             this.user = user;
             info.Content = "We sent you an email: " + user.email + "\n You can confirm registration by clicking on" +
                " the link in the letter, or insert the link here: ";
-
         }
-
         private void Button_Click_back(object sender, RoutedEventArgs e)
         {
             Client.deleteUserByLogin(user.login);

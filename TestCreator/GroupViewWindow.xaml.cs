@@ -83,6 +83,7 @@ namespace TestCreator
         {
             try
             {
+                Clipboard.Clear();
                 Clipboard.SetText(userGroup.group.invitationLink);
             }
             catch(Exception ww) {

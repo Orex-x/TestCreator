@@ -91,11 +91,5 @@
             <Button x:Name="ButtonSearchGroup" Content="search group" Grid.Row="1" HorizontalAlignment="Left" Margin="10,0,0,0" Height="40" Width="150" Click="Button_ClickSearchGroup"/>
             <Button x:Name="ButtonAddGroup" Content="Add group" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,10,0" Height="40" Width="100" Click="Button_ClickAddGroup"/>
         </Grid>
-
-
-
-      
-       
-
     </Grid>
 </Window>

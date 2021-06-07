@@ -58,11 +58,6 @@ namespace TestCreator
                 ButtonApplyEdit.IsEnabled = false;
             }
 
-           
-
-
-
-
             ObservableCollection<Group> groups2 = Client.getGroupsByUser(user);
             ObservableCollection<Test> tests2 = user.tests;
             ObservableCollection<PassedTest> passedTests2 = user.passedTests;
@@ -88,7 +83,6 @@ namespace TestCreator
                 tests.Add(test);
             }
         }
-
         private void Button_Click_AboutUser(object sender, RoutedEventArgs e)
         {
             listGroups.Visibility = Visibility.Hidden;
