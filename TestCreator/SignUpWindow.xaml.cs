@@ -30,7 +30,8 @@ namespace TestCreator
                !string.IsNullOrEmpty(last_name.Text) && !string.IsNullOrEmpty(login.Text) && !string.IsNullOrEmpty(email.Text)
             )
             {
-                if (password.Password.Length > 6 && password.Password == confirm_password.Password)
+                if (password.Password.Length > 6
+                    && password.Password == confirm_password.Password)
                 {
 
 
@@ -41,10 +42,9 @@ namespace TestCreator
                         last_name = last_name.Text,
                         login = login.Text,
                         password = password.Password,
-                        email = "vipboy78038@gmail.com",
+                        email = email.Text,
                         tests = new System.Collections.ObjectModel.ObservableCollection<Test>(),
-
-
+                        active = false
                     };
                     if (Client.signUpUser(user))
                     {

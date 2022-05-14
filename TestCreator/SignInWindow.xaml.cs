@@ -42,7 +42,14 @@ namespace TestCreator
                 {
                     if (user.password == password.Password)
                     {
-                        if (user.activationCode == null)
+                        if (!user.active)
+                        {
+                            ConfirmAccount confirmAccount = new ConfirmAccount();
+                            confirmAccount.setInfo(user);
+                            confirmAccount.Show();
+                            Close();
+                        }
+                        else if (user.activationCode == null)
                         {
                             MainWindow mainWindow = new MainWindow();
                             mainWindow.init(user);

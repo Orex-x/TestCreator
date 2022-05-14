@@ -41,6 +41,8 @@ namespace TestCreator
 
         private void Button_Click_confirmByTapLink(object sender, RoutedEventArgs e)
         {
+            SignInWindow window = new SignInWindow();
+            window.Show();
             Close();
         }
 
@@ -52,12 +54,12 @@ namespace TestCreator
                 mainWindow.init(user);
                 mainWindow.Show();
                 Database.savedata(
-                                new User
-                                {
-                                    login = user.login,
-                                    password = user.password
-                                }
-                                );
+                    new User
+                    {
+                        login = user.login,
+                        password = user.password
+                    }
+                );
                 Close();
             }
         }

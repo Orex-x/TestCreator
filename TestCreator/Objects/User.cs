@@ -16,6 +16,8 @@ namespace TestCreator.Objects
         public string email { get; set; }
         public string activationCode { get; set; }
 
+        public bool active { get; set; }
+
         public ObservableCollection<Test> tests { get; set; }
 
         public ObservableCollection<PassedTest> passedTests { get; set; }

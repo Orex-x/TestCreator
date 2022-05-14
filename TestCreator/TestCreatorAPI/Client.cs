@@ -52,8 +52,8 @@ namespace TestCreator.TestCreatorAPI
 
 
         private const string port = "8080";
-        private const string host = "192.168.0.147";
-        //private const string host = "localhost";
+        //private const string host = "192.168.0.147";
+        private const string host = "localhost";
 
         public static string sendRequest(string body, string uri, string method)
         {
@@ -97,9 +97,17 @@ namespace TestCreator.TestCreatorAPI
         //---------------------------------------------USER----------------------------------------------------------
         public static bool signUpUser(User user)
         {
-            string json = JsonSerializer.Serialize(user);
-            string uri = GenerateUrl(Urls.users);
-            return Convert.ToBoolean(sendRequest(json, uri, Method.POST));
+            try
+            {
+                string json = JsonSerializer.Serialize(user);
+                string uri = GenerateUrl(Urls.users);
+                return Convert.ToBoolean(sendRequest(json, uri, Method.POST));
+            }
+            catch(Exception e)
+            {
+
+            }
+            return false;
         }
 
         public static User updateUser(User user, long id)
