@@ -178,6 +178,7 @@ namespace TestCreator.TestCreatorAPI
 
         public static ObservableCollection<Test> getTestsByUser(User user)
         {
+
             string json = JsonSerializer.Serialize(user);
             string uri = GenerateUrl(Urls.testsGetByUser);
             string jsonL = sendRequest(json, uri, Method.POST);

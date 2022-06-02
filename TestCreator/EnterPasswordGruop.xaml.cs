@@ -18,11 +18,15 @@ namespace TestCreator
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (userGroup.group.password == passwordBox.Password)
+            if (userGroup.group.password.Equals(passwordBox.Password))
             {
                 Boolean add = Convert.ToBoolean(Client.addUserGroup(userGroup));
                 if (add)
+                {
                     MainWindow.groups.Add(userGroup);
+                    MessageBox.Show("group add");
+                }
+                    
             }
             else
                 MessageBox.Show("Invalid password");

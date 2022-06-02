@@ -40,7 +40,7 @@ namespace TestCreator
                 User user = Client.getUserbyLogin(login.Text);
                 if (user != null)
                 {
-                    if (user.password == password.Password)
+                    if (user.password.Equals(password.Password))
                     {
                         if (!user.active)
                         {
@@ -49,7 +49,7 @@ namespace TestCreator
                             confirmAccount.Show();
                             Close();
                         }
-                        else if (user.activationCode == null)
+                        else if (user.activationCode.Equals(""))
                         {
                             MainWindow mainWindow = new MainWindow();
                             mainWindow.init(user);
