@@ -1,0 +1,41 @@
+﻿<Window x:Class="TestCreator.ViewTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        mc:Ignorable="d"
+        Title="ViewTest" Height="450" Width="400">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Button 
+            x:Name="sendTest"
+            Content="Завершить тест" 
+            HorizontalAlignment="Right" 
+            Grid.Row="2"
+            VerticalAlignment="Bottom"
+            Click="Button_Click_SendTest" Cursor="Hand"/>
+        
+        <Label 
+            FontFamily="Arial"
+            Content="Test name"
+            FontSize="24"
+            x:Name="labelTitleTest" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center"/>
+        
+        <ListView Grid.Row="1" x:Name="listViewQuestions">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="Result" Margin="20,0,0,0" HorizontalAlignment="Left" Grid.Row="2" Visibility="Hidden" VerticalAlignment="Center"/>
+    </Grid>
+</Window>

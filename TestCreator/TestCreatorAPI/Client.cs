@@ -112,9 +112,18 @@ namespace TestCreator.TestCreatorAPI
 
         public static User updateUser(User user, long id)
         {
-            string json = JsonSerializer.Serialize(user);
-            string uri = GenerateUrl(Urls.users + id);
-            return JsonSerializer.Deserialize<User>(sendRequest(json, uri, Method.PUT));
+            try
+            {
+                string json = JsonSerializer.Serialize(user);
+                string uri = GenerateUrl(Urls.users + id);
+                return JsonSerializer.Deserialize<User>(sendRequest(json, uri, Method.PUT));
+            }
+            catch (Exception e)
+            {
+
+            }
+            return user;
+           
         }
 
         public static bool confirmUser(string link)

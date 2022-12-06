@@ -1,0 +1,79 @@
+﻿<Window x:Class="TestCreator.SignInWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ResizeMode="NoResize"
+        mc:Ignorable="d"
+      
+        Height="300" Width="400">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <Image 
+                        Source="/Img/icons.png" 
+                        Margin="10,0,0,0" 
+                        Width="50" Height="50"/>
+                    <Label 
+                        FontSize="24"
+                        FontFamily="Arial"
+                        Content="Онлайн тестирование" 
+                        VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+            <TextBox 
+                x:Name="login" 
+                Height="25" 
+                Margin="20,0,20,0"
+                materialDesign:HintAssist.Hint="Логин"
+                VerticalAlignment="Bottom" 
+                Grid.Row="1" Text="" />
+            <PasswordBox 
+                x:Name="password" 
+                Height="25" 
+                Margin="20,0,20,0"
+                Grid.Row="2" 
+                materialDesign:HintAssist.Hint="Пароль"
+                VerticalAlignment="Bottom"/>
+
+            <Grid Grid.Row="8">
+                <StackPanel Orientation="Horizontal">
+                    <Button 
+                        Content="Войти"
+                        VerticalAlignment="Bottom" 
+                        HorizontalAlignment="Left" 
+                         Margin="10,0,0,10"
+                        Click="Button_Click_signIn"/>
+
+                    <Button 
+                        Width="90" 
+                        Foreground="Black" 
+                        Margin="20,0,0,15"
+                        VerticalAlignment="Bottom" 
+                        VerticalContentAlignment="Center" 
+                        HorizontalContentAlignment="Center" 
+                        Content="нет аккаунта?" 
+                        Click="Button_Click_signUp" Height="20" Cursor="Hand">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

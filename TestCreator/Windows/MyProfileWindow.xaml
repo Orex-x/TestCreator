@@ -1,0 +1,98 @@
+﻿<Window x:Class="TestCreator.MyProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestCreator"
+        mc:Ignorable="d"
+        Title="MyProfileWindow" Height="400" Width="340">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button  Content="About user" Click="Button_Click_AboutUser"/>
+            <Button  Content="Groups" Grid.Column="1" Click="Button_Click_Group"/>
+            <Button Content="Tests" Grid.Column="2"  Click="Button_Click_Test"/>
+            <Button Content="Solved tests" Grid.Column="3"  Click="Button_Click_SolvedTets"/>
+        </Grid>
+
+        <TextBox x:Name="firstName" HorizontalAlignment="Left"
+                Text="TextBox"  VerticalAlignment="Top"/>
+        <TextBox x:Name="surname" HorizontalAlignment="Left"
+                Text="TextBox" VerticalAlignment="Top" Margin="0,23,0,0"/>
+
+        <Grid Grid.Row="2">
+            <ListView  x:Name="listGroups" Visibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Width="300" Text="{Binding Path=name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+
+            <ListView  x:Name="listTests" Visibility="Hidden" MouseDoubleClick="listTests_MouseDoubleClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Width="300" Text="{Binding Path=title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+            <ListView  x:Name="listPassetTests" Visibility="Hidden" MouseDoubleClick="listPassetTests_MouseDoubleClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Width="300" Text="{Binding Path=test.title}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+
+            <TextBox x:Name="patronymic" Text="Patronymic: pizadadf" HorizontalAlignment="Left" Margin="87,18,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="email" Text="Email: vpdso@jskdf.com" HorizontalAlignment="Left" Margin="61,41,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="login" Text="Login: orex-x" HorizontalAlignment="Left" Margin="61,64,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="numberOfTests" Content="Number of tests: 32" HorizontalAlignment="Left" Margin="14,87,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="numberOfTestsSolved" Content="Number of tests solved: 14" HorizontalAlignment="Left" Margin="14,118,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="numberOfGroup" Content="Number of group: 4" HorizontalAlignment="Left" Margin="14,147,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="ButtonApplyEdit" Content="Apply edit" HorizontalAlignment="Left" Margin="14,224,0,0" VerticalAlignment="Top" Height="27" Width="100" Click="ButtonApplyEdit_Click"/>
+            <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="14,178,0,0" VerticalAlignment="Top" Width="120"/>
+            <PasswordBox x:Name="Confirmpassword"  HorizontalAlignment="Left" Margin="14,201,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="120"/>
+            <Label x:Name="lLogin" Content="login:" HorizontalAlignment="Left" Margin="14,59,0,0" VerticalAlignment="Top" Height="27"/>
+            <Label  x:Name="lEmail"  Content="email:" HorizontalAlignment="Left" Margin="14,37,0,0" VerticalAlignment="Top" Height="27"/>
+            <Label x:Name="lPatronymic"  Content="patronymic: " HorizontalAlignment="Left" Margin="14,13,0,0" VerticalAlignment="Top" Height="27"/>
+        </Grid>
+    </Grid>
+</Window>
